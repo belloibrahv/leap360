@@ -35,15 +35,7 @@ services:
     dockerCommand: bash -c "exec yarn start --hostname 0.0.0.0 --port ${PORT}"
     envVars:
       - key: NEXT_PUBLIC_LEAP360_API_BASE_URL
-        fromService:
-          type: web
-          name: leap360-api
-          property: host
-        # This will automatically use https://leap360-api.onrender.com
-    buildArgs:
-      - key: NEXT_PUBLIC_LEAP360_API_BASE_URL
-        fromService:
-          type: web
-          name: leap360-api
-          property: host
+        value: https://leap360-api.onrender.com
+        # Update this if you change the API service name
+        # Note: Set this as a build-time env var in Render dashboard for Next.js builds
     autoDeploy: true

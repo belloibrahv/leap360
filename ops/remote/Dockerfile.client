@@ -12,8 +12,11 @@ RUN corepack enable && corepack install
 COPY ./.yarnrc.yml ./
 RUN yarn install
 
+# Build-time environment variable for Next.js
+# Render injects envVars as environment variables during build
 ARG NEXT_PUBLIC_LEAP360_API_BASE_URL
 ENV NEXT_PUBLIC_LEAP360_API_BASE_URL=${NEXT_PUBLIC_LEAP360_API_BASE_URL}
+
 COPY . .
 RUN yarn build
 

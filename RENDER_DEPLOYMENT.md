@@ -100,11 +100,11 @@ Follow **Step 0** above to set up your Supabase database and get the connection 
    - **Dockerfile Path**: `ops/remote/Dockerfile.client`
    - **Docker Command**: `bash -c "exec yarn start --hostname 0.0.0.0 --port ${PORT}"`
    - **Plan**: Free
-4. **Docker Build Arguments** (click "Add Build Arg"):
+4. **Environment Variables** (Next.js needs this at build time):
    - Key: `NEXT_PUBLIC_LEAP360_API_BASE_URL`
    - Value: Your API URL from Step 2 (e.g., `https://leap360-api.onrender.com`)
 5. Click "Create Web Service"
-6. Wait for deployment
+6. Wait for deployment (may take 5-10 minutes for first build)
 7. **Copy your Client URL** (e.g., `https://leap360-client.onrender.com`)
 
 #### Step 4: Update CORS
@@ -178,9 +178,16 @@ Your frontend needs these:
 - No trailing slashes in URLs
 
 ### Client Can't Connect to API
-- Verify `NEXT_PUBLIC_LEAP360_API_BASE_URL` is set correctly
+- Verify `NEXT_PUBLIC_LEAP360_API_BASE_URL` is set correctly in environment variables
 - Check if API service is running (check logs)
 - Ensure both services are in the same region for better performance
+- **Important**: Next.js bakes env vars at build time - if you change the API URL, you must **redeploy** the client (not just restart)
+
+### Build Failures for Frontend
+- If you see "NEXT_PUBLIC_LEAP360_API_BASE_URL is undefined" during build:
+  - Ensure the environment variable is set in Render dashboard (not as a build argument)
+  - Render automatically passes environment variables as Docker build arguments
+  - Redeploy the service after adding the environment variable
 
 ## Updating Your App
 
