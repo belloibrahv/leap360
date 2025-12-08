@@ -1,0 +1,43 @@
+name: leap360
+
+volumes:
+  node_modules:
+  dot_yarn_folder:
+  dot_next_folder:
+
+services:
+  web:
+    tty: true
+    stdin_open: true
+    ports:
+      - ${WEB_LOCAL_PORT}:8000
+    command: >
+      fastapi dev app/main.py --host 0.0.0.0
+    environment:
+      DEBUG: ${WEB_DEBUG}
+      SECRET_KEY: ${WEB_SECRET_KEY}
+      DATABASE_URL: ${WEB_DATABASE_URL}
+      ALLOWED_ORIGINS: ${WEB_ALLOWED_ORIGINS}
+    build:
+      context: ../../kernel/web
+      dockerfile: ../../ops/dev/Dockerfile.web
+    volumes:
+      - ../../kernel/web:/home/runner/kernel
+      - ../../local/web-docker:/home/runner/host
+
+  client:
+    tty: true
+    stdin_open: true
+    command: yarn run dev
+    ports:
+      - ${CLIENT_LOCAL_PORT}:3000
+    build:
+      context: ../../kernel/client
+      dockerfile: ../../ops/dev/Dockerfile.client
+    volumes:
+      - ../../kernel/client:/home/runner/kernel
+      - dot_yarn_folder:/home/runner/kernel/.yarn
+      - dot_next_folder:/home/runner/kernel/.next
+      - node_modules:/home/runner/kernel/node_modules
+    environment:
+      NEXT_PUBLIC_LEAP360_API_BASE_URL: ${CLIENT_LEAP360_API_BASE_URL}

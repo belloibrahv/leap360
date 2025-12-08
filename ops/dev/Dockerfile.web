@@ -1,0 +1,21 @@
+FROM python:3.13-alpine
+
+RUN apk update && apk add bash
+RUN pip install --upgrade uv pip
+
+RUN adduser -D runner
+WORKDIR /home/runner/kernel
+
+ENV UV_PROJECT_ENVIRONMENT=/home/runner/.venv
+ENV PATH=/home/runner/.venv/bin:${PATH}
+COPY ./pyproject.toml ./
+RUN uv sync
+RUN chown -R runner:runner /home/runner/.venv
+
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+ENV LANG=C.UTF-8
+
+USER runner
+
+EXPOSE 8000/tcp

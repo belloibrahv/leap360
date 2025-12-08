@@ -1,0 +1,104 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle with gradient -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e40af;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#3b82f6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#06b6d4;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="bookGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fbbf24;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f59e0b;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="leafGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#10b981;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#059669;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Outer circle -->
+  <circle cx="100" cy="100" r="95" fill="url(#bgGradient)" stroke="#ffffff" stroke-width="3"/>
+  
+  <!-- Inner decorative ring -->
+  <circle cx="100" cy="100" r="82" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1" stroke-dasharray="5,3"/>
+  
+  <!-- Central book symbol -->
+  <g transform="translate(100,100)">
+    <!-- Open book base -->
+    <path d="M -25 -5 L -25 20 Q -25 25 -20 25 L -2 25 L -2 -5 Z" fill="url(#bookGradient)" stroke="#e5e7eb" stroke-width="1"/>
+    <path d="M 25 -5 L 25 20 Q 25 25 20 25 L 2 25 L 2 -5 Z" fill="url(#bookGradient)" stroke="#e5e7eb" stroke-width="1"/>
+    
+    <!-- Book pages -->
+    <rect x="-23" y="-3" width="19" height="26" fill="#ffffff" opacity="0.9"/>
+    <rect x="4" y="-3" width="19" height="26" fill="#ffffff" opacity="0.9"/>
+    
+    <!-- Page lines -->
+    <line x1="-20" y1="2" x2="-6" y2="2" stroke="#d1d5db" stroke-width="0.5"/>
+    <line x1="-20" y1="6" x2="-6" y2="6" stroke="#d1d5db" stroke-width="0.5"/>
+    <line x1="-20" y1="10" x2="-6" y2="10" stroke="#d1d5db" stroke-width="0.5"/>
+    <line x1="-20" y1="14" x2="-6" y2="14" stroke="#d1d5db" stroke-width="0.5"/>
+    <line x1="-20" y1="18" x2="-6" y2="18" stroke="#d1d5db" stroke-width="0.5"/>
+    
+    <line x1="7" y1="2" x2="21" y2="2" stroke="#d1d5db" stroke-width="0.5"/>
+    <line x1="7" y1="6" x2="21" y2="6" stroke="#d1d5db" stroke-width="0.5"/>
+    <line x1="7" y1="10" x2="21" y2="10" stroke="#d1d5db" stroke-width="0.5"/>
+    <line x1="7" y1="14" x2="21" y2="14" stroke="#d1d5db" stroke-width="0.5"/>
+    <line x1="7" y1="18" x2="21" y2="18" stroke="#d1d5db" stroke-width="0.5"/>
+    
+    <!-- Knowledge tree growing from book -->
+    <path d="M 0 -5 L 0 -35" stroke="#8b5cf6" stroke-width="3" fill="none"/>
+    
+    <!-- Tree branches -->
+    <path d="M 0 -25 Q -10 -30 -15 -35" stroke="#8b5cf6" stroke-width="2" fill="none"/>
+    <path d="M 0 -25 Q 10 -30 15 -35" stroke="#8b5cf6" stroke-width="2" fill="none"/>
+    <path d="M 0 -35 Q -8 -40 -12 -45" stroke="#8b5cf6" stroke-width="2" fill="none"/>
+    <path d="M 0 -35 Q 8 -40 12 -45" stroke="#8b5cf6" stroke-width="2" fill="none"/>
+    
+    <!-- Leaves representing different subjects -->
+    <ellipse cx="-15" cy="-35" rx="4" ry="6" fill="url(#leafGradient)" transform="rotate(-30 -15 -35)"/>
+    <ellipse cx="15" cy="-35" rx="4" ry="6" fill="url(#leafGradient)" transform="rotate(30 15 -35)"/>
+    <ellipse cx="-12" cy="-45" rx="4" ry="6" fill="url(#leafGradient)" transform="rotate(-15 -12 -45)"/>
+    <ellipse cx="12" cy="-45" rx="4" ry="6" fill="url(#leafGradient)" transform="rotate(15 12 -45)"/>
+    <ellipse cx="0" cy="-50" rx="5" ry="7" fill="url(#leafGradient)"/>
+    
+    <!-- Educational symbols in leaves -->
+    <text x="-15" y="-32" font-family="Arial, sans-serif" font-size="6" fill="white" text-anchor="middle" font-weight="bold">A</text>
+    <text x="15" y="-32" font-family="Arial, sans-serif" font-size="6" fill="white" text-anchor="middle" font-weight="bold">1</text>
+    <text x="-12" y="-42" font-family="Arial, sans-serif" font-size="6" fill="white" text-anchor="middle" font-weight="bold">⚗</text>
+    <text x="12" y="-42" font-family="Arial, sans-serif" font-size="6" fill="white" text-anchor="middle" font-weight="bold">🌍</text>
+    <text x="0" y="-47" font-family="Arial, sans-serif" font-size="6" fill="white" text-anchor="middle" font-weight="bold">⭐</text>
+  </g>
+  
+  <!-- Orbiting elements representing different educational levels -->
+  <g transform="translate(100,100)">
+    <!-- Primary level symbol -->
+    <circle cx="-50" cy="-30" r="8" fill="#ef4444" opacity="0.9"/>
+    <text x="-50" y="-26" font-family="Arial, sans-serif" font-size="10" fill="white" text-anchor="middle" font-weight="bold">P</text>
+    
+    <!-- Secondary level symbol -->
+    <circle cx="50" cy="-30" r="8" fill="#8b5cf6" opacity="0.9"/>
+    <text x="50" y="-26" font-family="Arial, sans-serif" font-size="10" fill="white" text-anchor="middle" font-weight="bold">S</text>
+    
+    <!-- Unity symbol -->
+    <circle cx="-40" cy="40" r="6" fill="#10b981" opacity="0.9"/>
+    <text x="-40" y="44" font-family="Arial, sans-serif" font-size="8" fill="white" text-anchor="middle" font-weight="bold">U</text>
+    
+    <!-- Excellence symbol -->
+    <circle cx="40" cy="40" r="6" fill="#f59e0b" opacity="0.9"/>
+    <text x="40" y="44" font-family="Arial, sans-serif" font-size="8" fill="white" text-anchor="middle" font-weight="bold">E</text>
+  </g>
+  
+  <!-- Connecting lines -->
+  <g transform="translate(100,100)" opacity="0.3">
+    <line x1="-50" y1="-30" x2="0" y2="0" stroke="white" stroke-width="1"/>
+    <line x1="50" y1="-30" x2="0" y2="0" stroke="white" stroke-width="1"/>
+    <line x1="-40" y1="40" x2="0" y2="0" stroke="white" stroke-width="1"/>
+    <line x1="40" y1="40" x2="0" y2="0" stroke="white" stroke-width="1"/>
+  </g>
+  
+  <!-- Bottom text ribbon -->
+  <path d="M 20 170 Q 100 160 180 170 L 180 185 Q 100 175 20 185 Z" fill="rgba(255,255,255,0.9)"/>
+  <text x="100" y="182" font-family="Arial, sans-serif" font-size="11" fill="#1e40af" text-anchor="middle" font-weight="bold">LAGOS STATE</text>
+</svg>

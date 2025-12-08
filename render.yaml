@@ -1,0 +1,49 @@
+# Render Blueprint for Leap360
+# Deploy: Connect your GitHub repo to Render and it will auto-detect this file
+# Note: Database is hosted on Supabase (configure DATABASE_URL manually)
+
+services:
+  # Backend API Service (FastAPI)
+  - type: web
+    name: leap360-api
+    runtime: docker
+    dockerfilePath: ./ops/remote/Dockerfile.web
+    dockerContext: ./kernel/web
+    plan: free
+    healthCheckPath: /
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+        # Set this manually in Render dashboard with your Supabase connection string
+        # Format: postgresql://postgres.[project-ref]:[password]@aws-0-[region].pooler.supabase.com:6543/postgres
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: false
+      - key: ALLOWED_ORIGINS
+        value: '["https://leap360-client.onrender.com"]'
+        # Update this after deploying to match your actual client URL
+    autoDeploy: true
+
+  # Frontend Client Service (Next.js)
+  - type: web
+    name: leap360-client
+    runtime: docker
+    dockerfilePath: ./ops/remote/Dockerfile.client
+    dockerContext: ./kernel/client
+    plan: free
+    dockerCommand: bash -c "exec yarn start --hostname 0.0.0.0 --port ${PORT}"
+    envVars:
+      - key: NEXT_PUBLIC_LEAP360_API_BASE_URL
+        fromService:
+          type: web
+          name: leap360-api
+          property: host
+        # This will automatically use https://leap360-api.onrender.com
+    buildArgs:
+      - key: NEXT_PUBLIC_LEAP360_API_BASE_URL
+        fromService:
+          type: web
+          name: leap360-api
+          property: host
+    autoDeploy: true

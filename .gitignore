@@ -1,0 +1,12 @@
+.venv
+.DS_Store
+
+.env*
+!.env.stub
+
+/local/**
+!/local/.gitkeep
+
+/kernel/client/.next
+/kernel/client/.yarn
+/kernel/client/node_modules
