@@ -15,4 +15,8 @@ api_v1_router.include_router(auth.router)
 
 router = APIRouter(redirect_slashes=False)
 
+@router.get("/")
+async def health_check():
+    return {"status": "ok"}
+
 router.include_router(api_v1_router)
