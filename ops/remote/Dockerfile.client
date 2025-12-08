@@ -20,4 +20,4 @@ ENV NEXT_PUBLIC_LEAP360_API_BASE_URL=${NEXT_PUBLIC_LEAP360_API_BASE_URL}
 COPY . .
 RUN yarn build
 
-CMD ["bash", "-c", "exec yarn start --hostname 0.0.0.0 --port ${PORT}"]
+CMD ["bash", "-c", "yarn start --hostname 0.0.0.0 --port ${PORT}"]
