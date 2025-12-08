@@ -1,6 +1,15 @@
 # Render Blueprint for Leap360
 # Deploy: Connect your GitHub repo to Render and it will auto-detect this file
-# Note: Database is hosted on Supabase (configure DATABASE_URL manually)
+# Database is now managed by Render (automatic connection injection)
+
+databases:
+  # PostgreSQL Database
+  - name: leap360-db
+    databaseName: leap360
+    user: leap360
+    plan: free
+    # Free tier: 90 days, 256MB RAM, 1GB storage
+    # After 90 days, upgrade to Starter ($7/month) or migrate to Supabase
 
 services:
   # Backend API Service (FastAPI)
@@ -13,9 +22,9 @@ services:
     healthCheckPath: /
     envVars:
       - key: DATABASE_URL
-        sync: false
-        # Set this manually in Render dashboard with your Supabase connection string
-        # Format: postgresql://postgres.[project-ref]:[password]@aws-0-[region].pooler.supabase.com:6543/postgres
+        fromDatabase:
+          name: leap360-db
+          property: connectionString
       - key: SECRET_KEY
         generateValue: true
       - key: DEBUG
