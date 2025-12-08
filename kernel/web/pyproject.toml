@@ -9,4 +9,5 @@ dependencies = [
     "sqlmodel>=0.0.24",
     "cryptography>=45.0.6",
     "fastapi[standard-no-fastapi-cloud-cli]>=0.116.1",
+    "psycopg2-binary>=2.9.10",
 ]

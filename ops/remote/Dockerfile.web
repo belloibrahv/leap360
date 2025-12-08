@@ -8,8 +8,8 @@ WORKDIR /home/runner/kernel
 
 ENV UV_PROJECT_ENVIRONMENT=/home/runner/.venv
 ENV PATH=/home/runner/.venv/bin:${PATH}
-COPY ./pyproject.toml ./uv.lock ./
-RUN uv sync --locked
+COPY ./pyproject.toml ./
+RUN uv sync
 COPY . .
 RUN chown -R runner:runner /home/runner/.venv
 
