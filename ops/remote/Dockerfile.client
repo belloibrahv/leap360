@@ -20,19 +20,8 @@ RUN yarn install
 ARG NEXT_PUBLIC_LEAP360_API_BASE_URL
 ENV NEXT_PUBLIC_LEAP360_API_BASE_URL=${NEXT_PUBLIC_LEAP360_API_BASE_URL}
 
-# Copy configuration files first (needed for path resolution)
-COPY ./tsconfig.json ./
-COPY ./next.config.ts ./
-COPY ./next-env.d.ts ./
-COPY ./postcss.config.mjs ./
-COPY ./eslint.config.mjs ./
-
-# Copy source files
-COPY ./app ./app
-COPY ./components ./components
-COPY ./core ./core
-COPY ./types ./types
-COPY ./public ./public
+# Copy all files except those in .dockerignore
+COPY . .
 
 RUN yarn build
 
