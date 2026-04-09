@@ -1,5 +1,5 @@
 "use client";
-import { authStore } from "@/core/auth/store/authStore";
+import { useAuth } from "@/core/hooks/useAuth";
 import useClickAway from "@/core/hooks/useClickAway"; 
 import { useRouter } from "next/navigation";
 import { toTitleCase } from "@/core/base";
@@ -13,6 +13,7 @@ interface AccountMenuProps {
 
 const AccountMenu: FC<AccountMenuProps> = ({ name = 'User' }) => {
   const router = useRouter();
+  const { logout } = useAuth();
   const anchorRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
   const [mounted, setMounted] = useState(false);
@@ -34,7 +35,7 @@ const AccountMenu: FC<AccountMenuProps> = ({ name = 'User' }) => {
   const handleLogout = async () => {
     try {
       setIsLoggingOut(true);
-      authStore.clearAuth();
+      await logout();
       router.replace('/');
     } catch (error) {
       setIsLoggingOut(false);

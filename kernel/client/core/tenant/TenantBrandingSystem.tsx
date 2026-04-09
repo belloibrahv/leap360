@@ -328,8 +328,7 @@ export const useTenantStyling = () => {
       },
       input: {
         borderColor: primaryColor,
-        focusRingColor: primaryColor,
-      },
+      } as React.CSSProperties,
       link: {
         color: primaryColor,
       }

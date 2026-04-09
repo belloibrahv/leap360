@@ -9,15 +9,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, useInView, useScroll, useTransform } from 'framer-motion';
 import { Canvas } from '@react-three/fiber';
-import { Float, Text3D, MeshWobbleMaterial, Box, Sphere } from '@react-three/drei';
+import { Float, MeshWobbleMaterial, Box, Sphere } from '@react-three/drei';
 import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { 
   BookOpen, 
   Users, 
   BarChart3, 
-  Smartphone, 
-  Zap,
   Shield,
   Target,
   Globe,
@@ -37,7 +34,7 @@ const BRAND_COLORS = {
 };
 
 // 3D Feature Icon Component
-const Feature3D: React.FC<{ icon: string; color: string }> = ({ icon, color }) => {
+const Feature3D: React.FC<{ color: string }> = ({ color }) => {
   return (
     <Float speed={2} rotationIntensity={1} floatIntensity={2}>
       <Box args={[1, 1, 1]} scale={1.5}>
@@ -69,7 +66,7 @@ export const ProfessionalFeaturesSection: React.FC = () => {
     },
     {
       icon: <BarChart3 className="w-12 h-12" />,
-      title: "Advanced Analytics & Insights",
+      title: "Advanced Analytics &amp; Insights",
       description: "Real-time performance tracking, predictive analytics, and comprehensive reporting for data-driven decisions.",
       benefit: "Improve student outcomes by 35%",
       savings: "Early intervention increases success rates",
@@ -146,7 +143,7 @@ export const ProfessionalFeaturesSection: React.FC = () => {
                 <div className="absolute inset-0 opacity-20">
                   <Canvas camera={{ position: [0, 0, 5] }}>
                     <ambientLight intensity={0.5} />
-                    <Feature3D icon="box" color={feature.color} />
+                    <Feature3D color={feature.color} />
                   </Canvas>
                 </div>
 
@@ -224,7 +221,7 @@ export const ProfessionalSolutionsSection: React.FC = () => {
       icon: <Globe className="w-8 h-8" />
     },
     {
-      title: "School Groups & Districts",
+      title: "School Groups &amp; Districts",
       description: "Enterprise solution for managing multiple primary and secondary schools from one dashboard.",
       features: ["Multi-School Management", "Centralized Reporting", "Resource Optimization"],
       price: "Custom Pricing",
@@ -426,7 +423,7 @@ export const ProfessionalTestimonialsSection: React.FC = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
             >
-              "{testimonials[activeIndex].content}"
+              &ldquo;{testimonials[activeIndex].content}&rdquo;
             </motion.p>
 
             {/* Results Badge */}

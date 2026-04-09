@@ -141,7 +141,7 @@ const Navigation: React.FC<{ onGetStarted: () => void }> = ({ onGetStarted }) =>
 
 // Lightweight Hero Section
 const HeroSection: React.FC<{ onGetStarted: () => void }> = ({ onGetStarted }) => {
-  const { primaryColor, secondaryColor } = useTenantBranding();
+  const { primaryColor } = useTenantBranding();
 
   return (
     <section className="pt-20 pb-16 bg-gradient-to-br from-slate-900 to-blue-900 text-white">
@@ -293,7 +293,7 @@ const TestimonialsSection: React.FC = () => {
           </div>
           
           <p className="text-lg text-gray-700 mb-6 italic">
-            "{testimonial.content}"
+            &ldquo;{testimonial.content}&rdquo;
           </p>
           
           <div>

@@ -13,10 +13,8 @@ import { motion } from 'framer-motion';
 import { useTenantBranding } from '@/core/tenant';
 import AppLogo from '@/core/partials/AppLogo';
 import { 
-  Twitter, 
-  Linkedin, 
-  Github, 
-  Youtube, 
+  ExternalLink, 
+  Mail, 
   ArrowUp 
 } from 'lucide-react';
 
@@ -59,22 +57,22 @@ const socialLinks = [
   {
     name: "Twitter",
     href: "#",
-    icon: <Twitter className="w-5 h-5" />
+    icon: <ExternalLink className="w-5 h-5" />
   },
   {
     name: "LinkedIn",
     href: "#",
-    icon: <Linkedin className="w-5 h-5" />
+    icon: <ExternalLink className="w-5 h-5" />
   },
   {
     name: "GitHub",
     href: "#",
-    icon: <Github className="w-5 h-5" />
+    icon: <ExternalLink className="w-5 h-5" />
   },
   {
-    name: "YouTube",
+    name: "Contact",
     href: "#",
-    icon: <Youtube className="w-5 h-5" />
+    icon: <Mail className="w-5 h-5" />
   }
 ];
 

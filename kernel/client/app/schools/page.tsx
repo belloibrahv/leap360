@@ -71,9 +71,10 @@ const SchoolsPage: FC = () => {
       
       const response = await SchoolsApiClient.getSchools();
       setSchools(response.data.schools);
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('Failed to load schools:', err);
-      setError(err.message || 'Failed to load schools data');
+      const errorMessage = err instanceof Error ? err.message : 'Failed to load schools data';
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }

@@ -6,7 +6,7 @@
  */
 
 import { UserRole } from './auth';
-import { EnhancedUser, TenantContext, SchoolContext } from './enhanced-auth';
+import { EnhancedUser, TenantContext, SchoolContext, BrandingConfig } from './enhanced-auth';
 
 // Navigation Types
 export interface NavigationItem {

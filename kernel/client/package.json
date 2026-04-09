@@ -51,7 +51,6 @@
     "tailwindcss": "^4",
     "typescript": "^5"
   },
-  "packageManager": "yarn@4.6.0",
   "prettier": {
     "plugins": [
       "prettier-plugin-tailwindcss"

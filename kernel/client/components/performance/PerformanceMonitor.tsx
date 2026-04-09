@@ -29,7 +29,7 @@ export const usePerformanceMonitor = () => {
       const loadTime = performance.now() - startTime;
       
       // Detect connection type (for Nigerian network conditions)
-      const connection = (navigator as any).connection || (navigator as any).mozConnection || (navigator as any).webkitConnection;
+      const connection = (navigator as unknown as { connection?: { effectiveType?: string } }).connection;
       const connectionType = connection?.effectiveType || 'unknown';
       const isSlowConnection = ['slow-2g', '2g', '3g'].includes(connectionType);
       
@@ -82,4 +82,4 @@ export const PerformanceTips: React.FC = () => {
   );
 };
 
-export default PerformanceMonitor;
+export default usePerformanceMonitor;

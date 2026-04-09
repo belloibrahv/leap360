@@ -9,6 +9,7 @@
 "use client";
 
 import React from 'react';
+import { UserRole } from '@/types/auth';
 import { TenantContextProvider } from './TenantContextProvider';
 import { TenantBrandingSystem } from './TenantBrandingSystem';
 import { TenantConfigurationManager } from './TenantConfigurationManager';
@@ -43,7 +44,7 @@ interface MultiTenantProviderProps {
     path: string;
     requiresTenant: boolean;
     permissions?: string[];
-    roles?: string[];
+    roles?: UserRole[];
     isPublic?: boolean;
   }>;
 }

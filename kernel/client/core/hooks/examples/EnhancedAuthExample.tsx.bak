@@ -1,0 +1,306 @@
+/**
+ * Enhanced Authentication Hooks Example
+ * 
+ * Demonstrates usage of all enhanced authentication hooks
+ * including permission guards, tenant context, and real-time sync.
+ */
+
+'use client';
+
+import React from 'react';
+import { 
+  useAuth,
+  usePermission, 
+  useTenantContext,
+  useMultiPermissionGuard,
+  useResourceAccess,
+  usePermissionGuard,
+  useRoleGuard,
+  useAdminAccess,
+  useHasPermission
+} from '../index';
+import { UserRole, PERMISSIONS } from '@/types';
+
+/**
+ * Main example component showcasing all enhanced auth hooks
+ */
+export const EnhancedAuthExample: React.FC = () => {
+  // Core authentication state
+  const auth = useAuth();
+  
+  // Permission system
+  const permission = usePermission();
+  
+  // Tenant context management
+  const tenantContext = useTenantContext();
+  
+  // Multi-permission guard for complex scenarios
+  const multiPermissionGuard = useMultiPermissionGuard([
+    PERMISSIONS.STUDENTS_READ,
+    PERMISSIONS.GRADES_READ,
+    PERMISSIONS.ATTENDANCE_READ
+  ], "any");
+  
+  // Resource access for dynamic permissions
+  const studentAccess = useResourceAccess('students');
+  const gradeAccess = useResourceAccess('grades');
+  
+  // Specialized guards
+  const teacherGuard = useRoleGuard(UserRole.TEACHER);
+  const adminGuard = useAdminAccess();
+  const studentPermission = usePermissionGuard(PERMISSIONS.STUDENTS_READ);
+  
+  // Conditional rendering helper
+  const canViewGrades = useHasPermission(PERMISSIONS.GRADES_READ);
+
+  if (!auth.isAuthenticated) {
+    return (
+      <div className="p-4 bg-yellow-50 border border-yellow-200 rounded-md">
+        <p className="text-yellow-800">Please log in to access this content.</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-6 p-6 bg-white rounded-lg shadow-lg">
+      <h1 className="text-2xl font-bold text-gray-900">
+        Enhanced Authentication System Demo
+      </h1>
+      
+      {/* User Information */}
+      <section className="space-y-2">
+        <h2 className="text-lg font-semibold text-gray-800">User Information</h2>
+        <div className="bg-gray-50 p-4 rounded-md">
+          <p><strong>Name:</strong> {auth.user?.full_name}</p>
+          <p><strong>Email:</strong> {auth.user?.email}</p>
+          <p><strong>Role:</strong> {auth.user?.role}</p>
+          <p><strong>Authenticated:</strong> {auth.isAuthenticated ? 'Yes' : 'No'}</p>
+        </div>
+      </section>
+
+      {/* Tenant Context */}
+      <section className="space-y-2">
+        <h2 className="text-lg font-semibold text-gray-800">Tenant Context</h2>
+        <div className="bg-blue-50 p-4 rounded-md">
+          <p><strong>Current Tenant:</strong> {tenantContext.currentTenant?.name}</p>
+          <p><strong>Available Tenants:</strong> {tenantContext.availableTenants.length}</p>
+          <p><strong>Can Switch:</strong> {tenantContext.canSwitchTenants ? 'Yes' : 'No'}</p>
+          
+          {tenantContext.hasMultipleTenants && (
+            <div className="mt-2">
+              <label className="block text-sm font-medium text-gray-700">
+                Switch Tenant:
+              </label>
+              <select 
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+                onChange={(e) => tenantContext.switchTenant(e.target.value)}
+                value={tenantContext.currentTenant?.id || ''}
+                disabled={tenantContext.isSwitching}
+              >
+                {tenantContext.availableTenants.map(tenant => (
+                  <option key={tenant.id} value={tenant.id}>
+                    {tenant.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* Permission Checks */}
+      <section className="space-y-2">
+        <h2 className="text-lg font-semibold text-gray-800">Permission System</h2>
+        <div className="grid grid-cols-2 gap-4">
+          <div className="bg-green-50 p-4 rounded-md">
+            <h3 className="font-medium text-green-800">Basic Permissions</h3>
+            <ul className="mt-2 space-y-1 text-sm">
+              <li>Can read students: {permission.hasPermission(PERMISSIONS.STUDENTS_READ) ? '✓' : '✗'}</li>
+              <li>Can write grades: {permission.hasPermission(PERMISSIONS.GRADES_WRITE) ? '✓' : '✗'}</li>
+              <li>Is admin: {permission.isAdminRole() ? '✓' : '✗'}</li>
+              <li>Can access tenant: {permission.canAccessTenant(tenantContext.currentTenant?.id || '') ? '✓' : '✗'}</li>
+            </ul>
+          </div>
+          
+          <div className="bg-purple-50 p-4 rounded-md">
+            <h3 className="font-medium text-purple-800">Resource Access</h3>
+            <ul className="mt-2 space-y-1 text-sm">
+              <li>Students - Read: {studentAccess.canRead ? '✓' : '✗'}</li>
+              <li>Students - Write: {studentAccess.canWrite ? '✓' : '✗'}</li>
+              <li>Grades - Read: {gradeAccess.canRead ? '✓' : '✗'}</li>
+              <li>Grades - Write: {gradeAccess.canWrite ? '✓' : '✗'}</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* Role Guards */}
+      <section className="space-y-2">
+        <h2 className="text-lg font-semibold text-gray-800">Role-Based Access</h2>
+        <div className="grid grid-cols-3 gap-4">
+          <div className={`p-4 rounded-md ${teacherGuard.canAccess ? 'bg-green-50' : 'bg-red-50'}`}>
+            <h3 className="font-medium">Teacher Access</h3>
+            <p className="text-sm mt-1">
+              {teacherGuard.canAccess ? 'Granted' : 'Denied'}
+            </p>
+          </div>
+          
+          <div className={`p-4 rounded-md ${adminGuard.canAccess ? 'bg-green-50' : 'bg-red-50'}`}>
+            <h3 className="font-medium">Admin Access</h3>
+            <p className="text-sm mt-1">
+              {adminGuard.canAccess ? `Granted (${adminGuard.adminLevel})` : 'Denied'}
+            </p>
+          </div>
+          
+          <div className={`p-4 rounded-md ${multiPermissionGuard.hasAccess ? 'bg-green-50' : 'bg-red-50'}`}>
+            <h3 className="font-medium">Multi-Permission</h3>
+            <p className="text-sm mt-1">
+              {multiPermissionGuard.hasAccess ? 'Has Access' : 'No Access'}
+            </p>
+            <p className="text-xs mt-1">
+              Granted: {multiPermissionGuard.getGrantedPermissions().length} / 
+              Missing: {multiPermissionGuard.getMissingPermissions().length}
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* CRUD Operations */}
+      <section className="space-y-2">
+        <h2 className="text-lg font-semibold text-gray-800">CRUD Operations</h2>
+        <div className="bg-gray-50 p-4 rounded-md">
+          <h3 className="font-medium text-gray-800">Student Management</h3>
+          <div className="mt-2 flex space-x-4">
+            <button 
+              className={`px-3 py-1 rounded text-sm ${
+                studentPermission.hasPermission 
+                  ? 'bg-blue-500 text-white hover:bg-blue-600' 
+                  : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+              }`}
+              disabled={!studentPermission.hasPermission}
+            >
+              Create
+            </button>
+            <button 
+              className={`px-3 py-1 rounded text-sm ${
+                studentPermission.hasPermission 
+                  ? 'bg-green-500 text-white hover:bg-green-600' 
+                  : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+              }`}
+              disabled={!studentPermission.hasPermission}
+            >
+              Read
+            </button>
+            <button 
+              className={`px-3 py-1 rounded text-sm ${
+                studentPermission.hasPermission 
+                  ? 'bg-yellow-500 text-white hover:bg-yellow-600' 
+                  : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+              }`}
+              disabled={!studentPermission.hasPermission}
+            >
+              Update
+            </button>
+            <button 
+              className={`px-3 py-1 rounded text-sm ${
+                studentPermission.hasPermission 
+                  ? 'bg-red-500 text-white hover:bg-red-600' 
+                  : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+              }`}
+              disabled={!studentPermission.hasPermission}
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* Real-time Sync Status */}
+      <section className="space-y-2">
+        <h2 className="text-lg font-semibold text-gray-800">Real-time Sync</h2>
+        <div className="bg-indigo-50 p-4 rounded-md">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm">
+                <strong>Status:</strong> {realtimeSync.isOnline ? 'Online' : 'Offline'}
+              </p>
+              <p className="text-sm">
+                <strong>Last Sync:</strong> {
+                  realtimeSync.lastSyncTime 
+                    ? new Date(realtimeSync.lastSyncTime).toLocaleTimeString()
+                    : 'Never'
+                }
+              </p>
+              <p className="text-sm">
+                <strong>Sync Count:</strong> P:{realtimeSync.permissionSyncCount} | 
+                U:{realtimeSync.userSyncCount} | T:{realtimeSync.tenantSyncCount}
+              </p>
+            </div>
+            <div className="space-x-2">
+              <button
+                onClick={realtimeSync.forceSync}
+                disabled={realtimeSync.isSyncing}
+                className="px-3 py-1 bg-indigo-500 text-white rounded text-sm hover:bg-indigo-600 disabled:opacity-50"
+              >
+                {realtimeSync.isSyncing ? 'Syncing...' : 'Force Sync'}
+              </button>
+              <button
+                onClick={realtimeSync.reconnect}
+                className="px-3 py-1 bg-gray-500 text-white rounded text-sm hover:bg-gray-600"
+              >
+                Reconnect
+              </button>
+            </div>
+          </div>
+          
+          {realtimeSync.syncError && (
+            <div className="mt-2 p-2 bg-red-100 border border-red-300 rounded text-sm text-red-700">
+              <strong>Sync Error:</strong> {realtimeSync.syncError}
+              <button
+                onClick={realtimeSync.clearError}
+                className="ml-2 text-red-500 hover:text-red-700"
+              >
+                Clear
+              </button>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* Conditional Content */}
+      {canViewGrades && (
+        <section className="space-y-2">
+          <h2 className="text-lg font-semibold text-gray-800">Grade Information</h2>
+          <div className="bg-yellow-50 p-4 rounded-md">
+            <p className="text-yellow-800">
+              This content is only visible to users with grade viewing permissions.
+            </p>
+          </div>
+        </section>
+      )}
+
+      {/* Debug Information */}
+      <section className="space-y-2">
+        <h2 className="text-lg font-semibold text-gray-800">Debug Information</h2>
+        <details className="bg-gray-100 p-4 rounded-md">
+          <summary className="cursor-pointer font-medium">View Raw Data</summary>
+          <pre className="mt-2 text-xs overflow-auto">
+            {JSON.stringify({
+              user: auth.user,
+              permissions: permission,
+              tenantContext: tenantContext,
+              realtimeSync: {
+                isConnected: realtimeSync.isConnected,
+                isOnline: realtimeSync.isOnline,
+                lastSyncTime: realtimeSync.lastSyncTime,
+                syncError: realtimeSync.syncError,
+              }
+            }, null, 2)}
+          </pre>
+        </details>
+      </section>
+    </div>
+  );
+};
+
+export default EnhancedAuthExample;

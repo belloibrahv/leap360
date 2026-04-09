@@ -147,7 +147,7 @@ const LoginV2: FC = () => {
         router.replace("/schools");
       }, 1500);
 
-    } catch (error: any) {
+    } catch (error: unknown) {
       // Error is handled by the useAuth hook and useEffect above
       console.error('Login error:', error);
     }

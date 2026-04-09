@@ -14,7 +14,6 @@ import { OrbitControls, Float, Environment } from '@react-three/drei';
 import AppLogo from "@/core/partials/AppLogo";
 import LoginV2 from "@/core/auth/page/views/LoginViewV2";
 import { useAuth } from "@/core/hooks/useAuth";
-import { useTenantBranding } from "@/core/tenant";
 import { 
   ArrowLeft, 
   Info, 
@@ -22,7 +21,6 @@ import {
   BookOpen, 
   Shield, 
   CheckCircle,
-  GraduationCap,
   School
 } from "lucide-react";
 
@@ -35,7 +33,6 @@ const BRAND_COLORS = {
 const LoginPage: FC = () => {
   const router = useRouter();
   const { isAuthenticated } = useAuth();
-  const { primaryColor } = useTenantBranding();
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -45,7 +42,7 @@ const LoginPage: FC = () => {
 
   return (
     <div className="min-h-screen bg-black flex">
-      {/* Left Side - Student/Teacher Imagery & Branding */}
+      {/* Left Side - Student/Teacher Imagery &amp; Branding */}
       <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden">
         {/* Background Gradient */}
         <div 
@@ -109,7 +106,7 @@ const LoginPage: FC = () => {
               {[
                 { icon: <Users className="w-6 h-6" />, text: "Complete Student Management" },
                 { icon: <BookOpen className="w-6 h-6" />, text: "Academic Performance Tracking" },
-                { icon: <Shield className="w-6 h-6" />, text: "Secure & Compliant Platform" }
+                { icon: <Shield className="w-6 h-6" />, text: "Secure &amp; Compliant Platform" }
               ].map((feature, index) => (
                 <motion.div
                   key={index}

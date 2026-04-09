@@ -1,14 +1,17 @@
+/**
+ * Legacy Authentication Store (Deprecated)
+ * 
+ * This store is maintained for backward compatibility.
+ * New code should use enhancedAuthStore instead.
+ */
+
+import { useEnhancedAuthStore } from './enhancedAuthStore';
+
 class AuthStore {
   private static instance: AuthStore;
-  private token: string | null = null;
-  private email: string | null = null;
 
   private constructor() {
-    if (typeof window !== 'undefined') {
-      // Only access sessionStorage in browser environment
-      this.token = sessionStorage.getItem('auth_token');
-      this.email = sessionStorage.getItem('auth_email');
-    }
+    console.warn('AuthStore is deprecated. Use enhancedAuthStore instead.');
   }
 
   static getInstance(): AuthStore {
@@ -18,47 +21,34 @@ class AuthStore {
     return AuthStore.instance;
   }
 
+  // Delegate to enhanced store
   setCredentials(token: string, email: string) {
-    this.token = token;
-    this.email = email;
-    if (typeof window !== 'undefined') {
-      sessionStorage.setItem('auth_token', token);
-      sessionStorage.setItem('auth_email', email);
-    }
+    console.warn('AuthStore.setCredentials is deprecated. Use enhancedAuthStore.login instead.');
   }
 
   getToken(): string | null {
-    if (typeof window !== 'undefined') {
-      return sessionStorage.getItem('auth_token') || this.token;
-    }
-    return this.token;
+    const store = useEnhancedAuthStore.getState();
+    return store.accessToken;
   }
 
   getEmail(): string | null {
-    if (typeof window !== 'undefined') {
-      return sessionStorage.getItem('auth_email') || this.email;
-    }
-    return this.email;
+    const store = useEnhancedAuthStore.getState();
+    return store.user?.email || null;
   }
 
   clearAuth() {
-    this.token = null;
-    this.email = null;
-    if (typeof window !== 'undefined') {
-      sessionStorage.removeItem('auth_token');
-      sessionStorage.removeItem('auth_email');
-    }
+    const store = useEnhancedAuthStore.getState();
+    store.logout();
   }
 
   isAuthenticated(): boolean {
-    return !!this.getToken();
+    const store = useEnhancedAuthStore.getState();
+    return store.isAuthenticated;
   }
 
   async logout(): Promise<void> {
-    this.clearAuth();
-    if (typeof window !== 'undefined') {
-      window.location.href = '/';
-    }
+    const store = useEnhancedAuthStore.getState();
+    await store.logout();
   }
 }
 

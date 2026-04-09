@@ -12,6 +12,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { motion } from 'framer-motion';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Text3D, Center } from '@react-three/drei';
+import * as THREE from 'three';
 import { useTenantBranding } from '@/core/tenant';
 import { Rocket, Zap, Shield, Target } from 'lucide-react';
 
@@ -20,7 +21,7 @@ if (typeof window !== 'undefined') {
 }
 
 const Animated3DText: React.FC<{ text: string; color: string }> = ({ text, color }) => {
-  const textRef = useRef<any>();
+  const textRef = useRef<THREE.Mesh>(null);
 
   useEffect(() => {
     if (textRef.current) {
@@ -62,7 +63,7 @@ interface CTASectionProps {
 export const CTASection: React.FC<CTASectionProps> = ({ onGetStarted, onScheduleDemo }) => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
-  const { primaryColor, secondaryColor, tenantName } = useTenantBranding();
+  const { primaryColor, secondaryColor } = useTenantBranding();
 
   useEffect(() => {
     if (!sectionRef.current || !contentRef.current) return;

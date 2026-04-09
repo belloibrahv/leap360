@@ -10,13 +10,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/navigation';
-import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Sphere, MeshDistortMaterial, Float, Text3D, Environment } from '@react-three/drei';
-import { useSpring, animated } from '@react-spring/web';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useAuth } from '@/core/hooks/useAuth';
-import { useTenantBranding } from '@/core/tenant';
 import AppLogo from '@/core/partials/AppLogo';
 import { 
   ProfessionalFeaturesSection,
@@ -28,19 +24,15 @@ import {
   BookOpen, 
   Users, 
   BarChart3, 
-  Smartphone, 
   ArrowRight,
   Menu,
   X,
-  Star,
   CheckCircle,
   ArrowUp,
-  Zap,
   Shield,
-  Target,
-  Globe,
   Award,
-  TrendingUp
+  TrendingUp,
+  Zap
 } from 'lucide-react';
 
 // Register GSAP plugins
@@ -54,75 +46,6 @@ const BRAND_COLORS = {
   secondary: '#000000', 
   accent: '#ffffff',
   gray: '#f5f5f5'
-};
-
-// 3D Scene Component
-const AnimatedSphere: React.FC = () => {
-  const meshRef = useRef<any>(null);
-  
-  useEffect(() => {
-    if (meshRef.current) {
-      gsap.to(meshRef.current.rotation, {
-        y: Math.PI * 2,
-        duration: 20,
-        repeat: -1,
-        ease: "none"
-      });
-    }
-  }, []);
-
-  return (
-    <Float speed={2} rotationIntensity={1} floatIntensity={2}>
-      <Sphere ref={meshRef} args={[1, 100, 200]} scale={2.5}>
-        <MeshDistortMaterial
-          color={BRAND_COLORS.primary}
-          attach="material"
-          distort={0.3}
-          speed={2}
-          roughness={0.4}
-        />
-      </Sphere>
-    </Float>
-  );
-};
-
-// Particle System Component
-const ParticleField: React.FC = () => {
-  const particlesRef = useRef<any>(null);
-  
-  useEffect(() => {
-    if (particlesRef.current) {
-      const particles = particlesRef.current.children;
-      particles.forEach((particle: any, i: number) => {
-        gsap.to(particle.position, {
-          y: "+=2",
-          duration: 2 + Math.random() * 2,
-          repeat: -1,
-          yoyo: true,
-          delay: i * 0.1,
-          ease: "sine.inOut"
-        });
-      });
-    }
-  }, []);
-
-  return (
-    <group ref={particlesRef}>
-      {Array.from({ length: 50 }).map((_, i) => (
-        <Sphere
-          key={i}
-          args={[0.02, 8, 8]}
-          position={[
-            (Math.random() - 0.5) * 20,
-            (Math.random() - 0.5) * 20,
-            (Math.random() - 0.5) * 20
-          ]}
-        >
-          <meshBasicMaterial color={BRAND_COLORS.accent} />
-        </Sphere>
-      ))}
-    </group>
-  );
 };
 
 // Professional Navigation
@@ -274,21 +197,21 @@ const ProfessionalNavigation: React.FC<{ onGetStarted: () => void }> = ({ onGetS
 const ProfessionalHeroSection: React.FC<{ onGetStarted: () => void }> = ({ onGetStarted }) => {
   const heroRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll();
-  const y = useTransform(scrollYProgress, [0, 1], ['0%', '50%']);
-
-  const [titleSpring, setTitleSpring] = useSpring(() => ({
-    from: { opacity: 0, transform: 'translateY(100px)' },
-    to: { opacity: 1, transform: 'translateY(0px)' },
-    config: { tension: 280, friction: 60 }
-  }));
+  const y = useTransform(scrollYProgress, [0, 1], ['0%', '30%']);
 
   useEffect(() => {
     if (heroRef.current) {
       const tl = gsap.timeline();
       
-      tl.fromTo('.hero-title', 
+      // Staggered animations for left content
+      tl.fromTo('.hero-badge', 
+        { y: 50, opacity: 0, scale: 0.8 },
+        { y: 0, opacity: 1, scale: 1, duration: 0.8, ease: "back.out(1.7)" }
+      )
+      .fromTo('.hero-title', 
         { y: 100, opacity: 0 },
-        { y: 0, opacity: 1, duration: 1.2, ease: "power3.out" }
+        { y: 0, opacity: 1, duration: 1.2, ease: "power3.out" },
+        "-=0.6"
       )
       .fromTo('.hero-subtitle', 
         { y: 50, opacity: 0 },
@@ -304,6 +227,12 @@ const ProfessionalHeroSection: React.FC<{ onGetStarted: () => void }> = ({ onGet
         { y: 20, opacity: 0 },
         { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" },
         "-=0.4"
+      )
+      // Right side image animation
+      .fromTo('.hero-image', 
+        { x: 100, opacity: 0, scale: 0.9 },
+        { x: 0, opacity: 1, scale: 1, duration: 1.5, ease: "power3.out" },
+        "-=1.2"
       );
     }
   }, []);
@@ -311,138 +240,228 @@ const ProfessionalHeroSection: React.FC<{ onGetStarted: () => void }> = ({ onGet
   return (
     <section 
       ref={heroRef}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden pt-32"
-      style={{
-        background: `linear-gradient(135deg, ${BRAND_COLORS.secondary} 0%, ${BRAND_COLORS.primary} 100%)`
-      }}
+      className="relative min-h-screen flex items-center overflow-hidden pt-20 lg:pt-32"
     >
-      {/* Background Image - Students and Teachers */}
-      <div className="absolute inset-0 opacity-20">
-        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-black/60" />
-        {/* Placeholder for student/teacher imagery - can be replaced with actual images */}
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZGVmcz4KICAgIDxwYXR0ZXJuIGlkPSJzdHVkZW50cyIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiPgogICAgICA8Y2lyY2xlIGN4PSIyNSIgY3k9IjI1IiByPSI4IiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMSkiLz4KICAgICAgPGNpcmNsZSBjeD0iNzUiIGN5PSI3NSIgcj0iNiIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjA4KSIvPgogICAgPC9wYXR0ZXJuPgogIDwvZGVmcz4KICA8cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI3N0dWRlbnRzKSIvPgo8L3N2Zz4=')] opacity-30" />
-      </div>
+      {/* Background Image Layer */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: "url('/images/studentsbg.png')"
+        }}
+      />
+      
+      {/* Overlay Gradients for Content Readability */}
+      <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/30" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/20" />
+      
+      {/* Brand Color Overlay */}
+      <div 
+        className="absolute inset-0 opacity-40"
+        style={{
+          background: `linear-gradient(135deg, ${BRAND_COLORS.secondary}/60 0%, ${BRAND_COLORS.primary}/40 100%)`
+        }}
+      />
 
-      {/* 3D Background - Simplified */}
-      <div className="absolute inset-0 opacity-20">
-        <Canvas camera={{ position: [0, 0, 5], fov: 75 }}>
-          <ambientLight intensity={0.3} />
-          <pointLight position={[10, 10, 10]} />
-          <AnimatedSphere />
-          <Environment preset="night" />
-          <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={0.3} />
-        </Canvas>
-      </div>
-
-      {/* Content - Simplified */}
-      <motion.div 
-        className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center"
-        style={{ y }}
-      >
-        <motion.h1 
-          className="hero-title text-4xl md:text-6xl lg:text-7xl font-bold mb-8 text-white"
-          initial={{ opacity: 0, y: 100 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, ease: "easeOut" }}
-        >
-          <span className="block text-2xl md:text-3xl lg:text-4xl font-normal text-gray-300 mb-4">
-            School Management Platform for
-          </span>
-          <span className="block">Nigerian</span>
-          <span className="block bg-gradient-to-r from-red-500 to-red-300 bg-clip-text text-transparent">
-            Education
-          </span>
-        </motion.h1>
-
-        <motion.p 
-          className="hero-subtitle text-lg md:text-xl text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed font-light"
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.3 }}
-        >
-          Streamline operations, enhance student outcomes, and reduce administrative overhead 
-          with Nigeria's most trusted school management platform.
-        </motion.p>
-
-        <motion.div
-          className="hero-buttons flex flex-col sm:flex-row gap-4 justify-center mb-16"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-        >
-          <motion.button
-            onClick={onGetStarted}
-            className="px-8 py-4 bg-gradient-to-r from-red-600 to-red-700 text-white font-semibold text-lg rounded-lg hover:from-red-700 hover:to-red-800 transition-all shadow-lg flex items-center justify-center group"
-            whileHover={{ 
-              scale: 1.02, 
-              y: -2
-            }}
-            whileTap={{ scale: 0.98 }}
-          >
-            <span>Start Free Trial</span>
-            <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-          </motion.button>
+      {/* Content Container */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <div className="flex items-center justify-center min-h-[80vh]">
           
-          <motion.button 
-            className="px-8 py-4 bg-white/10 text-white font-semibold text-lg rounded-lg border border-white/20 hover:bg-white/20 transition-all backdrop-blur-sm flex items-center justify-center group"
-            whileHover={{ scale: 1.02, y: -2 }}
-            whileTap={{ scale: 0.98 }}
+          {/* Centered Content - Text and CTAs */}
+          <motion.div 
+            className="w-full max-w-4xl space-y-8 text-center"
+            style={{ y }}
           >
-            <BookOpen className="w-5 h-5 mr-2" />
-            <span>View Demo</span>
-          </motion.button>
-        </motion.div>
-
-        {/* Simplified Stats */}
-        <motion.div 
-          className="hero-stats grid grid-cols-3 gap-6 max-w-2xl mx-auto"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.9 }}
-        >
-          {[
-            { number: "500+", label: "Schools", icon: <Users className="w-5 h-5" />, color: "text-red-400" },
-            { number: "200K+", label: "Students", icon: <BookOpen className="w-5 h-5" />, color: "text-white" },
-            { number: "99.9%", label: "Uptime", icon: <Shield className="w-5 h-5" />, color: "text-green-400" }
-          ].map((stat, index) => (
+            {/* Trust Badge */}
             <motion.div
-              key={index}
-              className="text-center"
-              whileHover={{ scale: 1.05, y: -5 }}
-              transition={{ type: "spring", stiffness: 400 }}
+              className="hero-badge inline-flex items-center px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/20"
+              initial={{ opacity: 0, y: 50, scale: 0.8 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.8, ease: "backOut" }}
             >
-              <motion.div 
-                className="flex justify-center mb-2"
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ 
-                  delay: 1.2 + index * 0.2, 
-                  type: "spring", 
-                  stiffness: 200 
-                }}
-              >
-                <div className={`${stat.color}`}>
-                  {stat.icon}
-                </div>
-              </motion.div>
-              <motion.div 
-                className={`text-2xl md:text-3xl font-bold ${stat.color} mb-1`}
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ 
-                  delay: 1.4 + index * 0.2, 
-                  type: "spring", 
-                  stiffness: 200 
-                }}
-              >
-                {stat.number}
-              </motion.div>
-              <div className="text-white text-sm font-medium">
-                {stat.label}
-              </div>
+              <Shield className="w-4 h-4 text-green-400 mr-2" />
+              <span className="text-white text-sm font-medium">Trusted by 500+ Nigerian Schools</span>
             </motion.div>
-          ))}
-        </motion.div>
+
+            {/* Main Heading */}
+            <motion.h1 
+              className="hero-title text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-tight"
+              initial={{ opacity: 0, y: 100 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1.2, ease: "easeOut" }}
+            >
+              <span className="block text-lg md:text-xl lg:text-2xl font-normal text-gray-300 mb-2">
+                Nigeria&apos;s Leading
+              </span>
+              <span className="block">School Management</span>
+              <span className="block bg-gradient-to-r from-red-400 via-red-500 to-orange-400 bg-clip-text text-transparent">
+                Platform
+              </span>
+            </motion.h1>
+
+            {/* Subtitle */}
+            <motion.p 
+              className="hero-subtitle text-lg md:text-xl text-gray-200 leading-relaxed font-light max-w-3xl mx-auto"
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.3 }}
+            >
+              Streamline operations, enhance student outcomes, and reduce administrative overhead 
+              with our comprehensive school management solution designed for Nigerian institutions.
+            </motion.p>
+
+            {/* Action Buttons */}
+            <motion.div
+              className="hero-buttons flex flex-col sm:flex-row gap-4 justify-center"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+            >
+              <motion.button
+                onClick={onGetStarted}
+                className="px-8 py-4 bg-gradient-to-r from-red-600 to-red-700 text-white font-semibold text-lg rounded-xl hover:from-red-700 hover:to-red-800 transition-all shadow-xl flex items-center justify-center group"
+                whileHover={{ 
+                  scale: 1.02, 
+                  y: -2,
+                  boxShadow: "0 20px 40px rgba(239, 68, 68, 0.3)"
+                }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <span>Start Free Trial</span>
+                <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+              </motion.button>
+              
+              <motion.button 
+                className="px-8 py-4 bg-white/10 text-white font-semibold text-lg rounded-xl border border-white/20 hover:bg-white/20 transition-all backdrop-blur-sm flex items-center justify-center group"
+                whileHover={{ 
+                  scale: 1.02, 
+                  y: -2,
+                  backgroundColor: "rgba(255, 255, 255, 0.15)"
+                }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <BookOpen className="w-5 h-5 mr-2" />
+                <span>Watch Demo</span>
+              </motion.button>
+            </motion.div>
+
+            {/* Stats Row */}
+            <motion.div 
+              className="hero-stats grid grid-cols-3 gap-8 pt-8 max-w-2xl mx-auto"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.9 }}
+            >
+              {[
+                { number: "500+", label: "Schools", icon: <Users className="w-5 h-5" />, color: "text-red-400" },
+                { number: "200K+", label: "Students", icon: <BookOpen className="w-5 h-5" />, color: "text-white" },
+                { number: "99.9%", label: "Uptime", icon: <Shield className="w-5 h-5" />, color: "text-green-400" }
+              ].map((stat, index) => (
+                <motion.div
+                  key={index}
+                  className="text-center"
+                  whileHover={{ scale: 1.05, y: -5 }}
+                  transition={{ type: "spring", stiffness: 400 }}
+                >
+                  <motion.div 
+                    className="flex justify-center items-center mb-2"
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ 
+                      delay: 1.2 + index * 0.2, 
+                      type: "spring", 
+                      stiffness: 200 
+                    }}
+                  >
+                    <div className={`${stat.color} mr-2`}>
+                      {stat.icon}
+                    </div>
+                    <motion.div 
+                      className={`text-2xl md:text-3xl font-bold ${stat.color}`}
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      transition={{ 
+                        delay: 1.4 + index * 0.2, 
+                        type: "spring", 
+                        stiffness: 200 
+                      }}
+                    >
+                      {stat.number}
+                    </motion.div>
+                  </motion.div>
+                  <div className="text-gray-300 text-sm font-medium">
+                    {stat.label}
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </motion.div>
+        </div>
+      </div>
+
+      {/* Floating UI Elements - School Management Features */}
+      <motion.div
+        className="absolute top-1/4 right-8 lg:right-16 bg-white/90 backdrop-blur-sm rounded-2xl p-4 shadow-lg hidden lg:block"
+        animate={{ 
+          y: [0, -10, 0],
+          rotate: [0, 2, 0]
+        }}
+        transition={{ 
+          repeat: Infinity, 
+          duration: 4,
+          ease: "easeInOut"
+        }}
+        initial={{ opacity: 0, x: 100 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true }}
+      >
+        <div className="flex items-center space-x-2">
+          <BarChart3 className="w-4 h-4 text-blue-600" />
+          <span className="text-sm font-semibold text-gray-800">Student Analytics</span>
+        </div>
+      </motion.div>
+
+      <motion.div
+        className="absolute bottom-1/3 right-4 lg:right-12 bg-white/90 backdrop-blur-sm rounded-2xl p-4 shadow-lg hidden lg:block"
+        animate={{ 
+          y: [0, 10, 0],
+          rotate: [0, -2, 0]
+        }}
+        transition={{ 
+          repeat: Infinity, 
+          duration: 3,
+          ease: "easeInOut",
+          delay: 1
+        }}
+        initial={{ opacity: 0, x: 100 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true }}
+      >
+        <div className="flex items-center space-x-2">
+          <Users className="w-4 h-4 text-green-600" />
+          <span className="text-sm font-semibold text-gray-800">Class Management</span>
+        </div>
+      </motion.div>
+
+      <motion.div
+        className="absolute top-1/2 right-2 lg:right-8 bg-white/90 backdrop-blur-sm rounded-2xl p-4 shadow-lg hidden lg:block"
+        animate={{ 
+          y: [0, -8, 0],
+          rotate: [0, 1, 0]
+        }}
+        transition={{ 
+          repeat: Infinity, 
+          duration: 5,
+          ease: "easeInOut",
+          delay: 2
+        }}
+        initial={{ opacity: 0, x: 100 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true }}
+      >
+        <div className="flex items-center space-x-2">
+          <Award className="w-4 h-4 text-purple-600" />
+          <span className="text-sm font-semibold text-gray-800">Grade Tracking</span>
+        </div>
       </motion.div>
 
       {/* Scroll Indicator */}
@@ -532,7 +551,7 @@ export const ProfessionalHomepage: React.FC = () => {
                   whileHover={{ scale: 1.02, y: -2 }}
                 >
                   <div className="text-white/80 text-sm font-medium">{school}</div>
-                  <div className="text-gray-500 text-xs mt-1">Primary & Secondary</div>
+                  <div className="text-gray-500 text-xs mt-1">Primary &amp; Secondary</div>
                 </motion.div>
               ))}
             </div>
@@ -562,7 +581,7 @@ export const ProfessionalHomepage: React.FC = () => {
         </div>
       </section>
       
-      {/* Value Proposition Section - Clean & Educational */}
+      {/* Value Proposition Section - Clean &amp; Educational */}
       <section className="py-20 bg-gradient-to-b from-black to-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -596,7 +615,7 @@ export const ProfessionalHomepage: React.FC = () => {
               },
               {
                 icon: <Shield className="w-8 h-8" />,
-                title: "Secure & Compliant",
+                title: "Secure &amp; Compliant",
                 description: "Bank-level security with full compliance to Nigerian data protection laws",
                 metrics: "99.9% uptime guarantee"
               }
@@ -735,7 +754,7 @@ export const ProfessionalHomepage: React.FC = () => {
             <div>
               <h3 className="font-bold text-white mb-6">Solutions</h3>
               <ul className="space-y-3 text-gray-400">
-                {['School Management', 'Student Information Systems', 'Administrative Tools', 'Analytics & Reporting'].map((item) => (
+                {['School Management', 'Student Information Systems', 'Administrative Tools', 'Analytics &amp; Reporting'].map((item) => (
                   <li key={item}>
                     <a href="#" className="hover:text-red-400 transition-colors">{item}</a>
                   </li>

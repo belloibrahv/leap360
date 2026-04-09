@@ -5,6 +5,7 @@ import Header from "@/core/console/Header";
 import Spinner from "@/core/partials/Spinner";
 import ResultsTable from "@/core/console/ResultsTable";
 import Breadcrumb from "@/core/partials/Breadcrumb";
+import ProtectedRoute from "@/core/auth/components/ProtectedRoute";
 import { mockResultsByStudent } from "@/core/data/resultData";
 import { generateParentResultsBreadcrumb } from "@/core/utils/breadcrumbUtils";
 // import { getSchools } from "@/core/services/schools"; // COMMENTED OUT - Using dummy data instead
@@ -91,10 +92,11 @@ const ResultsPage: FC<ResultsPageProps> = ({ params }) => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
-      <Header />
+    <ProtectedRoute>
+      <div className="min-h-screen flex flex-col bg-gray-50">
+        <Header />
 
-      <main className="flex flex-1 overflow-hidden">
+        <main className="flex flex-1 overflow-hidden">
         {/* Left Sidebar - Hidden on mobile, shown on desktop */}
         <aside className="hidden lg:flex lg:w-80 bg-white border-r border-gray-200 shadow-sm flex-col">
           <div className="p-6 border-b border-gray-200 bg-gradient-to-r from-red-50 to-red-100">
@@ -304,6 +306,7 @@ const ResultsPage: FC<ResultsPageProps> = ({ params }) => {
         </section>
       </main>
     </div>
+    </ProtectedRoute>
   );
 };
 

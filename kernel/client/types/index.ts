@@ -5,6 +5,18 @@
  * used in the role-based frontend system.
  */
 
+import { UserRole } from './auth';
+import { PermissionContext } from './permissions';
+import type {
+  BreadcrumbItem as BreadcrumbItemType,
+  DashboardLayoutType as DashboardLayoutTypeType,
+  DeviceType as DeviceTypeType,
+  NavigationMenu as NavigationMenuType,
+  ScreenSize as ScreenSizeType,
+  WidgetInstance as WidgetInstanceType,
+} from './navigation';
+import type { EnhancedUser as EnhancedUserType } from './enhanced-auth';
+
 // Re-export original auth types (excluding conflicting ones)
 export { 
   UserRole,
@@ -105,7 +117,7 @@ export interface ComponentGuardProps {
 
 // Hook return types
 export interface UseAuthReturn {
-  user: EnhancedUser | null;
+  user: EnhancedUserType | null;
   isAuthenticated: boolean;
   isLoading: boolean;
   error: FrontendError | null;
@@ -127,25 +139,25 @@ export interface UsePermissionReturn {
 }
 
 export interface UseNavigationReturn {
-  currentMenu: NavigationMenu;
+  currentMenu: NavigationMenuType;
   activeRoute: string;
-  breadcrumbs: BreadcrumbItem[];
+  breadcrumbs: BreadcrumbItemType[];
   isMobileMenuOpen: boolean;
-  screenSize: ScreenSize;
-  deviceType: DeviceType;
+  screenSize: ScreenSizeType;
+  deviceType: DeviceTypeType;
   toggleMobileMenu: () => void;
   navigateTo: (route: string) => void;
   goBack: () => void;
 }
 
 export interface UseDashboardReturn {
-  widgets: WidgetInstance[];
-  layout: DashboardLayoutType;
+  widgets: WidgetInstanceType[];
+  layout: DashboardLayoutTypeType;
   isCustomizing: boolean;
   isLoading: boolean;
   addWidget: (widgetId: string) => void;
   removeWidget: (widgetId: string) => void;
-  updateWidget: (widgetId: string, updates: Partial<WidgetInstance>) => void;
+  updateWidget: (widgetId: string, updates: Partial<WidgetInstanceType>) => void;
   saveLayout: () => Promise<void>;
   resetLayout: () => void;
   toggleCustomizing: () => void;
