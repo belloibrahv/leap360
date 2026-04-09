@@ -12,6 +12,7 @@ COPY ./.yarnrc.yml ./
 ENV COREPACK_HOME=/home/runner/corepack
 RUN corepack enable && corepack install
 
+# Install dependencies without existing lockfile to avoid workspace issues
 RUN yarn install
 
 # Build-time environment variable for Next.js
@@ -19,8 +20,16 @@ RUN yarn install
 ARG NEXT_PUBLIC_LEAP360_API_BASE_URL
 ENV NEXT_PUBLIC_LEAP360_API_BASE_URL=${NEXT_PUBLIC_LEAP360_API_BASE_URL}
 
-# Copy all files (build context is kernel/client)
-COPY . .
+# Copy source files but exclude yarn.lock to avoid workspace conflicts
+COPY ./app ./app
+COPY ./components ./components
+COPY ./core ./core
+COPY ./types ./types
+COPY ./public ./public
+COPY ./*.config.* ./
+COPY ./*.json ./
+COPY ./next-env.d.ts ./
+
 RUN yarn build
 
 CMD ["bash", "-c", "yarn start --hostname 0.0.0.0 --port ${PORT}"]
