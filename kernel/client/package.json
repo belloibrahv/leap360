@@ -2,6 +2,7 @@
   "name": "leap360-client",
   "version": "1.0.0",
   "private": true,
+  "packageManager": "yarn@4.5.3",
   "scripts": {
     "dev": "next dev --turbopack",
     "lint": "next lint",
