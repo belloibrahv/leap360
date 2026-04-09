@@ -2,8 +2,11 @@ FROM node:24-alpine
 
 RUN apk update && apk add --no-cache bash
 
-WORKDIR /home/runner/kernel
+WORKDIR /home/runner/app
+
+# Copy package files (build context is kernel/client)
 COPY ./package.json ./.yarnrc.yml ./
+
 ENV COREPACK_HOME=/home/runner/corepack
 RUN corepack enable && corepack install
 RUN yarn install

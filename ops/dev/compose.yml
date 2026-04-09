@@ -35,9 +35,9 @@ services:
       context: ../../kernel/client
       dockerfile: ../../ops/dev/Dockerfile.client
     volumes:
-      - ../../kernel/client:/home/runner/kernel
-      - dot_yarn_folder:/home/runner/kernel/.yarn
-      - dot_next_folder:/home/runner/kernel/.next
-      - node_modules:/home/runner/kernel/node_modules
+      - ../../kernel/client:/home/runner/app
+      - dot_yarn_folder:/home/runner/app/.yarn
+      - dot_next_folder:/home/runner/app/.next
+      - node_modules:/home/runner/app/node_modules
     environment:
       NEXT_PUBLIC_LEAP360_API_BASE_URL: ${CLIENT_LEAP360_API_BASE_URL}
