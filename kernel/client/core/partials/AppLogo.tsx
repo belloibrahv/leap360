@@ -2,7 +2,7 @@ import { FC } from "react";
 import Image from "next/image";
 import AppIcon from "@/core/images/logo.png";
 
-type Scale = "small" | "medium";
+type Scale = "small" | "medium" | "large";
 
 interface ScaleAttrs {
   logoHeight: number;
@@ -20,6 +20,11 @@ const scales: {[key in Scale]: ScaleAttrs} = {
     logoHeight: 22,
     textFontSize: "1.3rem",
     textMarginTop: "0.3rem",
+  },
+  large: {
+    logoHeight: 32,
+    textFontSize: "1.8rem",
+    textMarginTop: "0.4rem",
   },
 };
 
