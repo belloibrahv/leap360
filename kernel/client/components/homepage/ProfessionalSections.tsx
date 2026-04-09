@@ -261,13 +261,6 @@ export const ProfessionalSolutionsSection: React.FC = () => {
           >
             Transparent pricing designed for Nigerian schools. No hidden fees, no setup costs, no long-term contracts required.
           </motion.p>
-            className="text-xl text-gray-300 max-w-4xl mx-auto"
-            initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            Scalable management solutions tailored for every level of educational administration and oversight.
-          </motion.p>
         </motion.div>
 
         <div className="grid md:grid-cols-3 gap-8">
