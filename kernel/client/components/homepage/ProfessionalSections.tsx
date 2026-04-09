@@ -61,34 +61,34 @@ export const ProfessionalFeaturesSection: React.FC = () => {
   const features = [
     {
       icon: <Users className="w-12 h-12" />,
-      title: "Save 40+ Hours Weekly",
-      description: "Automate student enrollment, attendance tracking, and record management. No more paperwork or manual data entry.",
-      benefit: "Reduce admin workload by 80%",
-      savings: "₦2M+ saved annually",
+      title: "Comprehensive Student Management",
+      description: "Complete student information system with automated enrollment, attendance tracking, and academic records management.",
+      benefit: "Reduce administrative workload by 80%",
+      savings: "Save 40+ hours weekly on manual processes",
       color: BRAND_COLORS.primary
     },
     {
       icon: <BarChart3 className="w-12 h-12" />,
-      title: "Boost Student Performance by 35%",
-      description: "Real-time performance tracking, early intervention alerts, and parent engagement tools that improve outcomes.",
-      benefit: "Higher graduation rates",
-      savings: "Proven results across 500+ schools",
+      title: "Advanced Analytics & Insights",
+      description: "Real-time performance tracking, predictive analytics, and comprehensive reporting for data-driven decisions.",
+      benefit: "Improve student outcomes by 35%",
+      savings: "Early intervention increases success rates",
       color: BRAND_COLORS.secondary
     },
     {
       icon: <BookOpen className="w-12 h-12" />,
-      title: "Streamline Fee Collection",
-      description: "Automated fee management with mobile payments, SMS reminders, and instant receipt generation.",
-      benefit: "99% collection rate",
-      savings: "Collect fees 3x faster",
+      title: "Automated Fee Management",
+      description: "Streamlined fee collection with mobile payments, automated reminders, and instant receipt generation.",
+      benefit: "Achieve 99% collection rate",
+      savings: "Reduce collection time by 75%",
       color: BRAND_COLORS.primary
     },
     {
       icon: <Shield className="w-12 h-12" />,
-      title: "Government-Grade Security",
-      description: "Bank-level encryption, automatic backups, and compliance with Nigerian data protection laws.",
-      benefit: "100% data protection",
-      savings: "Zero security incidents",
+      title: "Enterprise Security",
+      description: "Bank-level encryption, automated backups, and full compliance with Nigerian data protection regulations.",
+      benefit: "100% data protection guarantee",
+      savings: "Zero security incidents to date",
       color: BRAND_COLORS.secondary
     }
   ];
@@ -125,11 +125,11 @@ export const ProfessionalFeaturesSection: React.FC = () => {
           transition={{ duration: 0.8 }}
         >
           <h2 className="text-5xl md:text-6xl font-bold text-white mb-6">
-            Why Nigerian Schools
-            <span style={{ color: BRAND_COLORS.primary }}> Choose LEAP360</span>
+            Core Platform
+            <span style={{ color: BRAND_COLORS.primary }}> Features</span>
           </h2>
           <p className="text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
-            Join hundreds of Nigerian schools already saving time, money, and improving student outcomes with our proven platform.
+            Comprehensive tools designed specifically for Nigerian educational institutions and administrative excellence.
           </p>
         </motion.div>
 
@@ -177,8 +177,8 @@ export const ProfessionalFeaturesSection: React.FC = () => {
                       {feature.benefit}
                     </div>
                     
-                    <div className="flex items-center text-[#bc0004] font-bold">
-                      <span className="w-5 h-5 mr-2 text-lg">💰</span>
+                    <div className="flex items-center text-[#bc0004] font-semibold">
+                      <TrendingUp className="w-5 h-5 mr-2" />
                       {feature.savings}
                     </div>
                   </div>
@@ -208,27 +208,27 @@ export const ProfessionalSolutionsSection: React.FC = () => {
 
   const solutions = [
     {
-      title: "Small Schools (50-500 Students)",
-      description: "Perfect for private schools and academies. Get enterprise features at an affordable price.",
-      features: ["Complete Student Management", "Fee Collection Automation", "Parent Communication"],
-      price: "₦50,000/month",
-      savings: "Save ₦200K+ annually vs hiring admin staff",
+      title: "Primary Schools (50-300 Students)",
+      description: "Perfect for nursery and primary schools. Complete management solution with child-friendly features.",
+      features: ["Student Records Management", "Parent Communication Portal", "Basic Fee Collection"],
+      price: "₦35,000/month",
+      savings: "Save ₦150K+ annually vs manual processes",
       icon: <BookOpen className="w-8 h-8" />
     },
     {
-      title: "Large Schools (500+ Students)",
-      description: "Comprehensive solution for established institutions with advanced analytics and reporting.",
-      features: ["Advanced Analytics Dashboard", "Multi-Campus Management", "Government Compliance"],
-      price: "₦150,000/month",
-      savings: "ROI of 400% in first year",
+      title: "Secondary Schools (300-1500 Students)",
+      description: "Comprehensive solution for junior and senior secondary schools with advanced academic tracking.",
+      features: ["Advanced Analytics Dashboard", "WAEC/JAMB Integration", "Comprehensive Reporting"],
+      price: "₦75,000/month",
+      savings: "ROI of 300% in first year",
       icon: <Globe className="w-8 h-8" />
     },
     {
-      title: "School Districts & Boards",
-      description: "Enterprise solution for managing multiple schools with centralized oversight and control.",
-      features: ["District-wide Analytics", "Resource Optimization", "Policy Implementation"],
+      title: "School Groups & Districts",
+      description: "Enterprise solution for managing multiple primary and secondary schools from one dashboard.",
+      features: ["Multi-School Management", "Centralized Reporting", "Resource Optimization"],
       price: "Custom Pricing",
-      savings: "Reduce operational costs by 60%",
+      savings: "Reduce operational costs by 50%",
       icon: <Target className="w-8 h-8" />
     }
   ];
@@ -345,27 +345,27 @@ export const ProfessionalTestimonialsSection: React.FC = () => {
       name: "Dr. Adebayo Folake",
       role: "Principal",
       organization: "Greensprings School, Lagos",
-      content: "LEAP360 saved us ₦15M annually and reduced our admin workload by 70%. Our fee collection improved from 60% to 98% in just 3 months. Best investment we've made!",
+      content: "LEAP360 transformed our operations completely. We've reduced administrative overhead by 70% and improved our fee collection rate to 98%. The platform's intuitive design made adoption seamless for our entire staff.",
       rating: 5,
       results: "98% fee collection rate",
       image: "/api/placeholder/80/80"
     },
     {
-      name: "Prof. Chukwu Emmanuel",
-      role: "Vice-Chancellor",
-      organization: "Covenant University, Ota",
-      content: "Student performance increased by 40% after implementing LEAP360's analytics. The parent engagement tools are phenomenal - we now have 95% parent participation.",
+      name: "Mrs. Chukwu Emmanuel",
+      role: "Head Teacher",
+      organization: "Corona Schools, Victoria Island",
+      content: "The analytics and reporting capabilities are exceptional. We've seen a 40% improvement in student performance tracking and our parent engagement has increased significantly with the automated communication features.",
       rating: 5,
-      results: "40% performance boost",
+      results: "40% performance improvement",
       image: "/api/placeholder/80/80"
     },
     {
-      name: "Mrs. Fatima Abdullahi",
+      name: "Mr. Fatima Abdullahi",
       role: "Administrator",
       organization: "Loyola Jesuit College, Abuja",
-      content: "From 50+ hours of weekly paperwork to just 5 hours! LEAP360's automation freed up our staff to focus on what matters - educating our students.",
+      content: "Implementation was incredibly smooth. What used to take our team 50+ hours weekly now takes just 5 hours. The time savings have allowed us to focus more on educational quality and student support.",
       rating: 5,
-      results: "90% time savings",
+      results: "90% time reduction",
       image: "/api/placeholder/80/80"
     }
   ];
@@ -391,11 +391,11 @@ export const ProfessionalTestimonialsSection: React.FC = () => {
           transition={{ duration: 0.8 }}
         >
           <h2 className="text-5xl md:text-6xl font-bold text-white mb-6">
-            Real Results from
+            Success Stories from
             <span style={{ color: BRAND_COLORS.primary }}> Nigerian Schools</span>
           </h2>
           <p className="text-xl text-gray-300 max-w-4xl mx-auto">
-            See how schools across Nigeria are saving money, time, and improving student outcomes with LEAP360.
+            Hear from educational leaders who have transformed their institutions with LEAP360.
           </p>
         </motion.div>
 
@@ -436,10 +436,13 @@ export const ProfessionalTestimonialsSection: React.FC = () => {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.5 }}
             >
-              <div className="bg-gradient-to-r from-green-500/20 to-emerald-500/20 backdrop-blur-sm rounded-full px-6 py-3 border border-green-400/30">
-                <span className="text-green-400 font-bold text-lg">
-                  🎯 {testimonials[activeIndex].results}
-                </span>
+              <div className="bg-gradient-to-r from-green-500/20 to-emerald-500/20 backdrop-blur-sm rounded-lg px-6 py-3 border border-green-400/30">
+                <div className="flex items-center">
+                  <Award className="w-5 h-5 text-green-400 mr-2" />
+                  <span className="text-green-400 font-semibold text-lg">
+                    {testimonials[activeIndex].results}
+                  </span>
+                </div>
               </div>
             </motion.div>
             
@@ -516,92 +519,70 @@ export const ProfessionalCTASection: React.FC<{ onGetStarted: () => void }> = ({
           animate={isInView ? { opacity: 1, scale: 1 } : {}}
           transition={{ duration: 0.8 }}
         >
-          Don't Let Your School
-          <span className="block">Fall Behind!</span>
+          Ready to Transform
+          <span className="block">Your School?</span>
         </motion.h2>
         
         <motion.p 
-          className="text-xl text-red-100 mb-8 max-w-4xl mx-auto"
+          className="text-xl text-red-100 mb-12 max-w-4xl mx-auto"
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          Join 500+ Nigerian schools already saving <span className="font-bold">₦2M+ annually</span> and 
-          <span className="font-bold"> 40+ hours weekly</span> with LEAP360. 
-          Start your transformation today - setup takes just 24 hours!
+          Join 500+ Nigerian schools already transforming their operations with LEAP360. 
+          Get started today with our risk-free trial.
         </motion.p>
-
-        {/* Urgency Elements */}
-        <motion.div
-          className="mb-8"
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.3 }}
-        >
-          <div className="inline-flex items-center bg-white/20 backdrop-blur-sm rounded-full px-6 py-3 border border-white/30 mb-4">
-            <span className="text-yellow-300 mr-2 animate-pulse">⚡</span>
-            <span className="text-white font-bold">LIMITED TIME: 3 Months FREE for Q2 2026 signups!</span>
-          </div>
-          
-          <div className="flex flex-wrap justify-center gap-4 text-sm">
-            <div className="flex items-center text-white/90">
-              <span className="text-green-300 mr-2">✓</span>
-              <span>₦0 Setup Fee (Save ₦500K)</span>
-            </div>
-            <div className="flex items-center text-white/90">
-              <span className="text-green-300 mr-2">✓</span>
-              <span>Free Data Migration</span>
-            </div>
-            <div className="flex items-center text-white/90">
-              <span className="text-green-300 mr-2">✓</span>
-              <span>24/7 Nigerian Support</span>
-            </div>
-            <div className="flex items-center text-white/90">
-              <span className="text-green-300 mr-2">✓</span>
-              <span>30-Day Money Back Guarantee</span>
-            </div>
-          </div>
-        </motion.div>
         
         <motion.div 
-          className="flex flex-col sm:flex-row gap-6 justify-center mb-8"
+          className="flex flex-col sm:flex-row gap-6 justify-center mb-12"
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.4 }}
         >
           <motion.button
             onClick={onGetStarted}
-            className="px-12 py-4 bg-white text-red-600 font-bold text-lg rounded-full hover:bg-gray-100 transition-all shadow-2xl relative overflow-hidden group"
-            whileHover={{ scale: 1.05, y: -5 }}
-            whileTap={{ scale: 0.95 }}
+            className="px-12 py-4 bg-white text-red-600 font-bold text-lg rounded-lg hover:bg-gray-100 transition-all shadow-lg flex items-center justify-center"
+            whileHover={{ scale: 1.02, y: -2 }}
+            whileTap={{ scale: 0.98 }}
           >
-            <span className="relative z-10">Start FREE Trial Now - No Credit Card</span>
-            <motion.div
-              className="absolute inset-0 bg-gradient-to-r from-gray-100 to-white"
-              initial={{ x: '-100%' }}
-              whileHover={{ x: '0%' }}
-              transition={{ duration: 0.3 }}
-            />
+            <span>Start Free Trial</span>
+            <ArrowRight className="w-5 h-5 ml-2" />
           </motion.button>
           
           <motion.button 
-            className="px-12 py-4 bg-white/20 text-white font-bold text-lg rounded-full border-2 border-white/30 hover:bg-white/30 transition-all backdrop-blur-sm"
-            whileHover={{ scale: 1.05, y: -5 }}
-            whileTap={{ scale: 0.95 }}
+            className="px-12 py-4 bg-white/20 text-white font-bold text-lg rounded-lg border border-white/30 hover:bg-white/30 transition-all backdrop-blur-sm flex items-center justify-center"
+            whileHover={{ scale: 1.02, y: -2 }}
+            whileTap={{ scale: 0.98 }}
           >
-            📞 Book 15-Min Demo Call
+            <BookOpen className="w-5 h-5 mr-2" />
+            <span>Schedule Demo</span>
           </motion.button>
         </motion.div>
 
-        {/* Risk Reversal */}
+        {/* Trust Indicators */}
         <motion.div
           className="text-center"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.6 }}
         >
+          <div className="flex flex-wrap justify-center gap-6 text-sm mb-4">
+            <div className="flex items-center text-white/90">
+              <CheckCircle className="w-4 h-4 mr-2 text-green-300" />
+              <span>No setup fees</span>
+            </div>
+            <div className="flex items-center text-white/90">
+              <CheckCircle className="w-4 h-4 mr-2 text-green-300" />
+              <span>Free data migration</span>
+            </div>
+            <div className="flex items-center text-white/90">
+              <CheckCircle className="w-4 h-4 mr-2 text-green-300" />
+              <span>30-day money-back guarantee</span>
+            </div>
+          </div>
           <p className="text-red-100 text-sm">
-            🛡️ <span className="font-semibold">Risk-Free Trial:</span> Cancel anytime in first 30 days for full refund
+            <Shield className="w-4 h-4 inline mr-1" />
+            <span className="font-semibold">Risk-Free:</span> Cancel anytime in first 30 days for full refund
           </p>
         </motion.div>
       </div>

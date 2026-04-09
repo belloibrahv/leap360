@@ -311,169 +311,122 @@ const ProfessionalHeroSection: React.FC<{ onGetStarted: () => void }> = ({ onGet
   return (
     <section 
       ref={heroRef}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden pt-32"
       style={{
         background: `linear-gradient(135deg, ${BRAND_COLORS.secondary} 0%, ${BRAND_COLORS.primary} 100%)`
       }}
     >
-      {/* 3D Background */}
-      <div className="absolute inset-0 opacity-30">
+      {/* Background Image - Students and Teachers */}
+      <div className="absolute inset-0 opacity-20">
+        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-transparent to-black/60" />
+        {/* Placeholder for student/teacher imagery - can be replaced with actual images */}
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZGVmcz4KICAgIDxwYXR0ZXJuIGlkPSJzdHVkZW50cyIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiPgogICAgICA8Y2lyY2xlIGN4PSIyNSIgY3k9IjI1IiByPSI4IiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMSkiLz4KICAgICAgPGNpcmNsZSBjeD0iNzUiIGN5PSI3NSIgcj0iNiIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjA4KSIvPgogICAgPC9wYXR0ZXJuPgogIDwvZGVmcz4KICA8cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI3N0dWRlbnRzKSIvPgo8L3N2Zz4=')] opacity-30" />
+      </div>
+
+      {/* 3D Background - Simplified */}
+      <div className="absolute inset-0 opacity-20">
         <Canvas camera={{ position: [0, 0, 5], fov: 75 }}>
-          <ambientLight intensity={0.5} />
+          <ambientLight intensity={0.3} />
           <pointLight position={[10, 10, 10]} />
           <AnimatedSphere />
-          <ParticleField />
           <Environment preset="night" />
-          <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={0.5} />
+          <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={0.3} />
         </Canvas>
       </div>
 
-      {/* Content */}
+      {/* Content - Simplified */}
       <motion.div 
-        className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center"
+        className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center"
         style={{ y }}
       >
         <motion.h1 
-          className="hero-title text-5xl md:text-7xl lg:text-8xl font-bold mb-8 text-white"
+          className="hero-title text-4xl md:text-6xl lg:text-7xl font-bold mb-8 text-white"
           initial={{ opacity: 0, y: 100 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, ease: "easeOut" }}
         >
-          Nigeria's #1
-          <span className="block bg-gradient-to-r from-red-500 to-red-300 bg-clip-text text-transparent">
-            School Platform
+          <span className="block text-2xl md:text-3xl lg:text-4xl font-normal text-gray-300 mb-4">
+            School Management Platform for
           </span>
-          <span className="block text-4xl md:text-5xl lg:text-6xl mt-4">
-            <span style={{ color: BRAND_COLORS.primary }}>LEAP360</span>
+          <span className="block">Nigerian</span>
+          <span className="block bg-gradient-to-r from-red-500 to-red-300 bg-clip-text text-transparent">
+            Education
           </span>
         </motion.h1>
 
         <motion.p 
-          className="hero-subtitle text-xl md:text-2xl text-gray-300 mb-8 max-w-4xl mx-auto leading-relaxed"
+          className="hero-subtitle text-lg md:text-xl text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed font-light"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.3 }}
         >
-          Join <span className="text-[#bc0004] font-semibold">500+ Nigerian schools</span> saving 
-          <span className="text-[#bc0004] font-semibold"> 40+ hours weekly</span> with our complete management solution. 
-          From student records to fee collection - everything in one place.
+          Streamline operations, enhance student outcomes, and reduce administrative overhead 
+          with Nigeria's most trusted school management platform.
         </motion.p>
 
-        {/* Trust Indicators */}
         <motion.div
-          className="flex flex-wrap justify-center gap-6 mb-12 text-sm"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-        >
-          <div className="flex items-center text-white/90 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2">
-            <span className="text-green-400 mr-2">✓</span>
-            <span>Setup in 24 hours</span>
-          </div>
-          <div className="flex items-center text-white/90 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2">
-            <span className="text-green-400 mr-2">✓</span>
-            <span>₦0 setup fee</span>
-          </div>
-          <div className="flex items-center text-white/90 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2">
-            <span className="text-green-400 mr-2">✓</span>
-            <span>Free training included</span>
-          </div>
-          <div className="flex items-center text-white/90 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2">
-            <span className="text-green-400 mr-2">✓</span>
-            <span>24/7 Nigerian support</span>
-          </div>
-        </motion.div>
-
-        <motion.div
-          className="hero-buttons flex flex-col sm:flex-row gap-6 justify-center mb-16"
+          className="hero-buttons flex flex-col sm:flex-row gap-4 justify-center mb-16"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
         >
           <motion.button
             onClick={onGetStarted}
-            className="px-10 py-4 bg-gradient-to-r from-red-600 to-red-700 text-white font-bold text-lg rounded-full hover:from-red-700 hover:to-red-800 transition-all shadow-2xl flex items-center justify-center group relative overflow-hidden"
+            className="px-8 py-4 bg-gradient-to-r from-red-600 to-red-700 text-white font-semibold text-lg rounded-lg hover:from-red-700 hover:to-red-800 transition-all shadow-lg flex items-center justify-center group"
             whileHover={{ 
-              scale: 1.05, 
-              boxShadow: "0 25px 50px rgba(188, 0, 4, 0.4)",
-              y: -5
+              scale: 1.02, 
+              y: -2
             }}
-            whileTap={{ scale: 0.95 }}
+            whileTap={{ scale: 0.98 }}
           >
-            <span className="relative z-10">Start Free Trial - No Credit Card</span>
-            <motion.div
-              className="ml-3 relative z-10"
-              animate={{ x: [0, 5, 0] }}
-              transition={{ repeat: Infinity, duration: 1.5 }}
-            >
-              <ArrowRight className="w-6 h-6" />
-            </motion.div>
-            {/* Animated background */}
-            <motion.div
-              className="absolute inset-0 bg-gradient-to-r from-red-500 to-red-600"
-              initial={{ x: '-100%' }}
-              whileHover={{ x: '0%' }}
-              transition={{ duration: 0.3 }}
-            />
+            <span>Start Free Trial</span>
+            <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
           </motion.button>
           
           <motion.button 
-            className="px-10 py-4 bg-white/10 text-white font-bold text-lg rounded-full border-2 border-white/30 hover:bg-white/20 transition-all backdrop-blur-sm group"
-            whileHover={{ scale: 1.05, y: -5 }}
-            whileTap={{ scale: 0.95 }}
+            className="px-8 py-4 bg-white/10 text-white font-semibold text-lg rounded-lg border border-white/20 hover:bg-white/20 transition-all backdrop-blur-sm flex items-center justify-center group"
+            whileHover={{ scale: 1.02, y: -2 }}
+            whileTap={{ scale: 0.98 }}
           >
-            <span className="flex items-center">
-              <span className="mr-2">📹</span>
-              Watch 2-Min Demo
-            </span>
+            <BookOpen className="w-5 h-5 mr-2" />
+            <span>View Demo</span>
           </motion.button>
         </motion.div>
 
-        {/* Urgency Banner */}
-        <motion.div
-          className="mb-12"
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.8 }}
-        >
-          <div className="inline-flex items-center bg-gradient-to-r from-orange-500/20 to-red-500/20 backdrop-blur-sm rounded-full px-6 py-3 border border-orange-400/30">
-            <span className="text-orange-300 mr-2 animate-pulse">🔥</span>
-            <span className="text-white font-medium">Limited Time: Get 3 months FREE for new schools this quarter!</span>
-          </div>
-        </motion.div>
-
-        {/* Animated Stats */}
+        {/* Simplified Stats */}
         <motion.div 
-          className="hero-stats grid grid-cols-3 gap-8 max-w-4xl mx-auto"
+          className="hero-stats grid grid-cols-3 gap-6 max-w-2xl mx-auto"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.9 }}
         >
           {[
-            { number: "500+", label: "Nigerian Schools", color: "text-red-400", icon: "🏫" },
-            { number: "200K+", label: "Students Managed", color: "text-white", icon: "👨‍🎓" },
-            { number: "40hrs", label: "Saved Weekly", color: "text-red-300", icon: "⏰" }
+            { number: "500+", label: "Schools", icon: <Users className="w-5 h-5" />, color: "text-red-400" },
+            { number: "200K+", label: "Students", icon: <BookOpen className="w-5 h-5" />, color: "text-white" },
+            { number: "99.9%", label: "Uptime", icon: <Shield className="w-5 h-5" />, color: "text-green-400" }
           ].map((stat, index) => (
             <motion.div
               key={index}
-              className="text-center bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10"
-              whileHover={{ scale: 1.05, y: -10, backgroundColor: "rgba(255,255,255,0.1)" }}
+              className="text-center"
+              whileHover={{ scale: 1.05, y: -5 }}
               transition={{ type: "spring", stiffness: 400 }}
             >
               <motion.div 
-                className="text-3xl mb-2"
-                initial={{ scale: 0, rotate: -180 }}
-                animate={{ scale: 1, rotate: 0 }}
+                className="flex justify-center mb-2"
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
                 transition={{ 
                   delay: 1.2 + index * 0.2, 
                   type: "spring", 
                   stiffness: 200 
                 }}
               >
-                {stat.icon}
+                <div className={`${stat.color}`}>
+                  {stat.icon}
+                </div>
               </motion.div>
               <motion.div 
-                className={`text-3xl md:text-4xl font-bold ${stat.color} mb-2`}
+                className={`text-2xl md:text-3xl font-bold ${stat.color} mb-1`}
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ 
@@ -484,36 +437,11 @@ const ProfessionalHeroSection: React.FC<{ onGetStarted: () => void }> = ({ onGet
               >
                 {stat.number}
               </motion.div>
-              <div className="text-gray-300 text-sm md:text-base font-medium">
+              <div className="text-white text-sm font-medium">
                 {stat.label}
               </div>
             </motion.div>
           ))}
-        </motion.div>
-
-        {/* Social Proof */}
-        <motion.div
-          className="mt-16 text-center"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.2 }}
-        >
-          <p className="text-gray-400 text-sm mb-4">Trusted by leading Nigerian institutions</p>
-          <div className="flex flex-wrap justify-center items-center gap-8 opacity-60">
-            {[
-              "University of Lagos", "Covenant University", "Federal University of Technology",
-              "Lagos State University", "Babcock University"
-            ].map((school, index) => (
-              <motion.div
-                key={index}
-                className="text-white/70 text-sm font-medium bg-white/5 px-4 py-2 rounded-full"
-                whileHover={{ scale: 1.05, opacity: 1 }}
-                transition={{ duration: 0.2 }}
-              >
-                {school}
-              </motion.div>
-            ))}
-          </div>
         </motion.div>
       </motion.div>
 
@@ -572,58 +500,122 @@ export const ProfessionalHomepage: React.FC = () => {
       <ProfessionalNavigation onGetStarted={handleGetStarted} />
       <ProfessionalHeroSection onGetStarted={handleGetStarted} />
       
-      {/* Value Proposition Section */}
+      {/* Trusted By Section - Separate */}
       <section className="py-16 bg-gradient-to-b from-black to-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
-            className="text-center mb-12"
+            className="text-center"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <p className="text-gray-400 text-sm mb-8 font-medium">Trusted by leading Nigerian schools</p>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+              {[
+                "Greensprings School",
+                "Loyola Jesuit College", 
+                "Corona Schools",
+                "Chrisland Schools",
+                "Dowen College",
+                "Whitesands School",
+                "Caleb International",
+                "Vivian Fowler Memorial"
+              ].map((school, index) => (
+                <motion.div
+                  key={index}
+                  className="text-center p-4 bg-white/5 backdrop-blur-sm rounded-lg border border-white/10 hover:border-white/20 transition-all"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                  whileHover={{ scale: 1.02, y: -2 }}
+                >
+                  <div className="text-white/80 text-sm font-medium">{school}</div>
+                  <div className="text-gray-500 text-xs mt-1">Primary & Secondary</div>
+                </motion.div>
+              ))}
+            </div>
+            
+            {/* Key Trust Indicators */}
+            <motion.div
+              className="flex flex-wrap justify-center gap-8 mt-12 max-w-3xl mx-auto"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              viewport={{ once: true }}
+            >
+              <div className="flex items-center text-white/90 bg-white/5 backdrop-blur-sm rounded-lg px-6 py-3 border border-white/10">
+                <CheckCircle className="w-5 h-5 mr-3 text-green-400" />
+                <span className="font-medium">500+ Schools Trust Us</span>
+              </div>
+              <div className="flex items-center text-white/90 bg-white/5 backdrop-blur-sm rounded-lg px-6 py-3 border border-white/10">
+                <Zap className="w-5 h-5 mr-3 text-yellow-400" />
+                <span className="font-medium">Setup in 24 Hours</span>
+              </div>
+              <div className="flex items-center text-white/90 bg-white/5 backdrop-blur-sm rounded-lg px-6 py-3 border border-white/10">
+                <Shield className="w-5 h-5 mr-3 text-blue-400" />
+                <span className="font-medium">Bank-Level Security</span>
+              </div>
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+      
+      {/* Value Proposition Section - Clean & Educational */}
+      <section className="py-20 bg-gradient-to-b from-black to-gray-900">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            className="text-center mb-16"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Why Nigerian Schools Choose <span className="text-[#bc0004]">LEAP360</span>
+              Why Schools Choose <span className="text-[#bc0004]">LEAP360</span>
             </h2>
-            <p className="text-gray-300 text-lg max-w-3xl mx-auto">
-              Stop wasting time on paperwork. Start focusing on education.
+            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+              Comprehensive solutions designed specifically for Nigerian educational institutions
             </p>
           </motion.div>
 
           <div className="grid md:grid-cols-3 gap-8">
             {[
               {
-                icon: "⏰",
-                title: "Save 40+ Hours Weekly",
-                description: "Automate attendance, fee collection, and report generation",
-                stat: "80% less admin work"
+                icon: <TrendingUp className="w-8 h-8" />,
+                title: "Operational Efficiency",
+                description: "Streamline administrative tasks and reduce manual processes by up to 80%",
+                metrics: "40+ hours saved weekly"
               },
               {
-                icon: "💰",
-                title: "Save ₦2M+ Annually",
-                description: "Reduce staffing costs and eliminate paper-based processes",
-                stat: "400% ROI in year 1"
+                icon: <Award className="w-8 h-8" />,
+                title: "Student Success",
+                description: "Data-driven insights and analytics to improve educational outcomes",
+                metrics: "35% performance improvement"
               },
               {
-                icon: "📈",
-                title: "Boost Performance 35%",
-                description: "Data-driven insights improve student outcomes",
-                stat: "Proven across 500+ schools"
+                icon: <Shield className="w-8 h-8" />,
+                title: "Secure & Compliant",
+                description: "Bank-level security with full compliance to Nigerian data protection laws",
+                metrics: "99.9% uptime guarantee"
               }
             ].map((item, index) => (
               <motion.div
                 key={index}
-                className="text-center p-6 bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10"
+                className="text-center p-8 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 hover:border-white/20 transition-all"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.2 }}
                 viewport={{ once: true }}
-                whileHover={{ scale: 1.05, y: -5 }}
+                whileHover={{ scale: 1.02, y: -5 }}
               >
-                <div className="text-4xl mb-4">{item.icon}</div>
-                <h3 className="text-xl font-bold text-white mb-2">{item.title}</h3>
-                <p className="text-gray-300 mb-3">{item.description}</p>
-                <div className="text-[#bc0004] font-bold">{item.stat}</div>
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-[#bc0004]/10 rounded-xl mb-6 border border-[#bc0004]/20">
+                  <div className="text-[#bc0004]">{item.icon}</div>
+                </div>
+                <h3 className="text-xl font-bold text-white mb-3">{item.title}</h3>
+                <p className="text-gray-300 mb-4 leading-relaxed">{item.description}</p>
+                <div className="text-[#bc0004] font-semibold text-sm">{item.metrics}</div>
               </motion.div>
             ))}
           </div>
@@ -634,11 +626,11 @@ export const ProfessionalHomepage: React.FC = () => {
       <ProfessionalSolutionsSection />
       <ProfessionalTestimonialsSection />
       
-      {/* FAQ Section */}
-      <section className="py-16 bg-gradient-to-b from-gray-900 to-black">
+      {/* FAQ Section - Professional */}
+      <section className="py-20 bg-gradient-to-b from-gray-900 to-black">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
-            className="text-center mb-12"
+            className="text-center mb-16"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -647,62 +639,66 @@ export const ProfessionalHomepage: React.FC = () => {
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
               Frequently Asked <span className="text-[#bc0004]">Questions</span>
             </h2>
-            <p className="text-gray-300 text-lg">
-              Everything you need to know about LEAP360
+            <p className="text-gray-400 text-lg">
+              Everything you need to know about implementing LEAP360
             </p>
           </motion.div>
 
           <div className="space-y-6">
             {[
               {
-                question: "How quickly can we get started?",
-                answer: "Setup takes just 24 hours! Our team handles data migration, staff training, and system configuration. You'll be operational within one business day."
+                question: "How quickly can we implement LEAP360?",
+                answer: "Implementation typically takes 24-48 hours. Our team handles data migration, system configuration, and staff training to ensure a smooth transition with minimal disruption to your operations."
               },
               {
-                question: "What about our existing data?",
-                answer: "We migrate all your existing student records, grades, and administrative data for FREE. No data loss, no downtime, no hassle."
+                question: "What happens to our existing student data?",
+                answer: "We provide comprehensive data migration services at no additional cost. All student records, academic history, and administrative data are securely transferred to maintain complete continuity."
               },
               {
-                question: "Is it really ₦0 setup fee?",
-                answer: "Yes! No setup fees, no hidden costs, no long-term contracts. Pay only the monthly subscription. Cancel anytime with 30-day money-back guarantee."
+                question: "What are the pricing and contract terms?",
+                answer: "We offer transparent monthly pricing with no setup fees or long-term contracts. You can cancel anytime, and we provide a 30-day money-back guarantee for new customers."
               },
               {
-                question: "Will our staff need extensive training?",
-                answer: "LEAP360 is designed for Nigerian schools - intuitive and easy to use. We provide free training and 24/7 Nigerian support in English and local languages."
+                question: "Do you provide training and ongoing support?",
+                answer: "Yes, we include comprehensive staff training and provide 24/7 support through our Nigerian team. Support is available in English and local languages via phone, email, and chat."
               },
               {
-                question: "How secure is our school data?",
-                answer: "Bank-level security with 256-bit encryption, automatic backups, and compliance with Nigerian data protection laws. Your data is 100% safe and private."
+                question: "How do you ensure data security and compliance?",
+                answer: "LEAP360 uses bank-level 256-bit encryption, automated backups, and complies with all Nigerian data protection regulations. Your school data is completely secure and private."
               }
             ].map((faq, index) => (
               <motion.div
                 key={index}
-                className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10"
+                className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10 hover:border-white/20 transition-all"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 viewport={{ once: true }}
               >
-                <h3 className="text-xl font-bold text-white mb-3">{faq.question}</h3>
-                <p className="text-gray-300 leading-relaxed">{faq.answer}</p>
+                <h3 className="text-xl font-semibold text-white mb-3 flex items-center">
+                  <div className="w-2 h-2 bg-[#bc0004] rounded-full mr-3"></div>
+                  {faq.question}
+                </h3>
+                <p className="text-gray-300 leading-relaxed pl-5">{faq.answer}</p>
               </motion.div>
             ))}
           </div>
 
           <motion.div
-            className="text-center mt-12"
+            className="text-center mt-16"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
             viewport={{ once: true }}
           >
-            <p className="text-gray-400 mb-4">Still have questions?</p>
+            <p className="text-gray-400 mb-6">Need more information?</p>
             <motion.button
-              className="px-8 py-3 bg-gradient-to-r from-red-600 to-red-700 text-white font-bold rounded-full hover:from-red-700 hover:to-red-800 transition-all"
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.95 }}
+              className="px-8 py-3 bg-gradient-to-r from-red-600 to-red-700 text-white font-semibold rounded-lg hover:from-red-700 hover:to-red-800 transition-all flex items-center mx-auto"
+              whileHover={{ scale: 1.02, y: -2 }}
+              whileTap={{ scale: 0.98 }}
             >
-              📞 Talk to Our Nigerian Team
+              <Users className="w-5 h-5 mr-2" />
+              Contact Our Team
             </motion.button>
           </motion.div>
         </div>
