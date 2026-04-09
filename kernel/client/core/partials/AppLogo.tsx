@@ -23,10 +23,18 @@ const scales: {[key in Scale]: ScaleAttrs} = {
   },
 };
 
-interface AppLogoProps { scale?: Scale; };
+interface AppLogoProps {
+  scale?: Scale;
+  className?: string;
+  textClassName?: string;
+};
 
-const AppLogo: FC<AppLogoProps> = ({ scale = "small" }) => (
-  <div className="flex gap-2 items-center justify-center"> {/* Increased gap from 0.3rem to 2 (0.5rem) */}
+const AppLogo: FC<AppLogoProps> = ({
+  scale = "small",
+  className = "",
+  textClassName = "text-slate-900",
+}) => (
+  <div className={`flex items-center justify-center gap-2 ${className}`}>
     <Image 
       height={scales[scale].logoHeight} 
       src={AppIcon} 
@@ -34,7 +42,7 @@ const AppLogo: FC<AppLogoProps> = ({ scale = "small" }) => (
     />
 
     <span
-      className="leading-0 text-[#333]-700 tracking-wider"
+      className={`leading-none tracking-wider font-semibold ${textClassName}`}
       style={{
         marginTop: scales[scale].textMarginTop, 
         fontSize: scales[scale].textFontSize
