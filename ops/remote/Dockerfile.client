@@ -24,7 +24,6 @@ ENV NEXT_PUBLIC_LEAP360_API_BASE_URL=${NEXT_PUBLIC_LEAP360_API_BASE_URL}
 COPY ./tsconfig.json ./
 COPY ./next.config.ts ./
 COPY ./next-env.d.ts ./
-COPY ./tailwind.config.ts ./
 COPY ./postcss.config.mjs ./
 COPY ./eslint.config.mjs ./
 
